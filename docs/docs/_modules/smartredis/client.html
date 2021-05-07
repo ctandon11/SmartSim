@@ -1,0 +1,824 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>smartredis.client &mdash; SmartSim 0.3.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> SmartSim
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Overview of SmartSim</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../overview.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../community.html">Community</a></li>
+</ul>
+<p class="caption"><span class="caption-text">tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/01_getting_started/01_getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials/smartredis.html">Using SmartRedis Clients</a></li>
+</ul>
+<p class="caption"><span class="caption-text">SmartSim</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../experiment.html">Experiments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../orchestrator.html">Orchestrator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../launchers.html">Launchers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/smartsim_api.html">SmartSim API</a></li>
+</ul>
+<p class="caption"><span class="caption-text">SmartRedis</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../smartredis.html">SmartRedis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../sr_data_structures.html">Data Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../sr_runtime.html">Runtime Requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/smartredis_api.html">SmartRedis API</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../code_of_conduct.html">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer.html">Developer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">SmartSim</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>smartredis.client</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for smartredis.client</h1><div class="highlight"><pre>
+<span></span><span class="c1"># BSD 2-Clause License</span>
+<span class="c1">#</span>
+<span class="c1"># Copyright (c) 2021, Hewlett Packard Enterprise</span>
+<span class="c1"># All rights reserved.</span>
+<span class="c1">#</span>
+<span class="c1"># Redistribution and use in source and binary forms, with or without</span>
+<span class="c1"># modification, are permitted provided that the following conditions are met:</span>
+<span class="c1">#</span>
+<span class="c1"># 1. Redistributions of source code must retain the above copyright notice, this</span>
+<span class="c1">#    list of conditions and the following disclaimer.</span>
+<span class="c1">#</span>
+<span class="c1"># 2. Redistributions in binary form must reproduce the above copyright notice,</span>
+<span class="c1">#    this list of conditions and the following disclaimer in the documentation</span>
+<span class="c1">#    and/or other materials provided with the distribution.</span>
+<span class="c1">#</span>
+<span class="c1"># THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot;</span>
+<span class="c1"># AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE</span>
+<span class="c1"># IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE</span>
+<span class="c1"># DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE</span>
+<span class="c1"># FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL</span>
+<span class="c1"># DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR</span>
+<span class="c1"># SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER</span>
+<span class="c1"># CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,</span>
+<span class="c1"># OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE</span>
+<span class="c1"># OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span>
+
+<span class="kn">import</span> <span class="nn">inspect</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">os.path</span> <span class="k">as</span> <span class="nn">osp</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">.dataset</span> <span class="kn">import</span> <span class="n">Dataset</span>
+<span class="kn">from</span> <span class="nn">.error</span> <span class="kn">import</span> <span class="n">RedisConnectionError</span><span class="p">,</span> <span class="n">RedisReplyError</span>
+<span class="kn">from</span> <span class="nn">.smartredisPy</span> <span class="kn">import</span> <span class="n">PyClient</span>
+<span class="kn">from</span> <span class="nn">.util</span> <span class="kn">import</span> <span class="n">Dtypes</span><span class="p">,</span> <span class="n">init_default</span>
+
+
+<div class="viewcode-block" id="Client"><a class="viewcode-back" href="../../api/smartredis_api.html#smartredis.Client">[docs]</a><span class="k">class</span> <span class="nc">Client</span><span class="p">(</span><span class="n">PyClient</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cluster</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize a RedisAI client</span>
+
+<span class="sd">        For clusters, the address can be a single tcp/ip address and port</span>
+<span class="sd">        of a database node. The rest of the cluster will be discovered</span>
+<span class="sd">        by the client itself. (e.g. address=&quot;127.0.0.1:6379&quot;)</span>
+
+<span class="sd">        If an address is not set, the client will look for the environment</span>
+<span class="sd">        variable ``$SSDB`` (e.g. SSDB=&quot;127.0.0.1:6379;&quot;)</span>
+
+<span class="sd">        :param address: Address of the database</span>
+<span class="sd">        :param cluster: True if connecting to a redis cluster, defaults to False</span>
+<span class="sd">        :type cluster: bool, optional</span>
+<span class="sd">        :raises RedisConnectionError: if connection initialization fails</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">address</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__set_address</span><span class="p">(</span><span class="n">address</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s2">&quot;SSDB&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">RedisConnectionError</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">cluster</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">RedisConnectionError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span> <span class="kn">from</span> <span class="bp">None</span>
+
+<div class="viewcode-block" id="Client.put_tensor"><a class="viewcode-back" href="../../api/smartredis_api.html#smartredis.Client.put_tensor">[docs]</a>    <span class="k">def</span> <span class="nf">put_tensor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Put a tensor to a Redis database</span>
+
+<span class="sd">        :param key: key for tensor for be stored at</span>
+<span class="sd">        :type key: str</span>
+<span class="sd">        :param data: numpy array</span>
+<span class="sd">        :type data: np.array</span>
+<span class="sd">        :raises RedisReplyError: if put fails</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Argument provided was not a numpy array&quot;</span><span class="p">)</span>
+        <span class="n">dtype</span> <span class="o">=</span> <span class="n">Dtypes</span><span class="o">.</span><span class="n">tensor_from_numpy</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">put_tensor</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">RedisReplyError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="s2">&quot;put_tensor&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="bp">None</span></div>
+
+<div class="viewcode-block" id="Client.get_tensor"><a class="viewcode-back" href="../../api/smartredis_api.html#smartredis.Client.get_tensor">[docs]</a>    <span class="k">def</span> <span class="nf">get_tensor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get a tensor from the database</span>
+
+<span class="sd">        :param key: key to get tensor from</span>
+<span class="sd">        :type key: str</span>
+<span class="sd">        :raises RedisReplyError: if get fails</span>
+<span class="sd">        :return: numpy array</span>
+<span class="sd">        :rtype: np.array</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_tensor</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">RedisReplyError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="s2">&quot;get_tensor&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="bp">None</span></div>
+
+<div class="viewcode-block" id="Client.put_dataset"><a class="viewcode-back" href="../../api/smartredis_api.html#smartredis.Client.put_dataset">[docs]</a>    <span class="k">def</span> <span class="nf">put_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Put a Dataset instance into the database</span>
+
+<span class="sd">        All associated tensors and metadata within the Dataset</span>
+<span class="sd">        instance will also be stored.</span>
+
+<span class="sd">        :param dataset: a Dataset instance</span>
+<span class="sd">        :type dataset: Dataset</span>
+<span class="sd">        :raises TypeError: if argument is not a Dataset</span>
+<span class="sd">        :raises RedisReplyError: if connection fails</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">Dataset</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Argument to put_dataset was not of type Dataset&quot;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">put_dataset</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">RedisReplyError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="s2">&quot;put_dataset&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="bp">None</span></div>
+
+<div class="viewcode-block" id="Client.get_dataset"><a class="viewcode-back" href="../../api/smartredis_api.html#smartredis.Client.get_dataset">[docs]</a>    <span class="k">def</span> <span class="nf">get_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get a dataset from the database</span>
+
+<span class="sd">        :param key: key the dataset is stored under</span>
+<span class="sd">        :type key: str</span>
+<span class="sd">        :raises RedisConnectionError: if connection fails</span>
+<span class="sd">        :return: Dataset instance</span>
+<span class="sd">        :rtype: Dataset</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">dataset</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">dataset</span>
+        <span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">RedisReplyError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="s2">&quot;get_dataset&quot;</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">)</span> <span class="kn">from</span> <span class="bp">None</span></div>
+
+<div class="viewcode-block" id="Client.set_function"><a class="viewcode-back" href="../../api/smartredis_api.html#smartredis.Client.set_function">[docs]</a>    <span class="k">def</span> <span class="nf">set_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">function</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;CPU&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set a callable function into the database</span>
+
+<span class="sd">        Function must be a callable TorchScript function and have at least</span>
+<span class="sd">        one input and one output. Call the function with the Client.run_script</span>
+<span class="sd">        method.</span>
+<span class="sd">        Device selection is either &quot;GPU&quot; or &quot;CPU&quot;. If many devices are</span>
+<span class="sd">        present, a number can be passed for specification e.g. &quot;GPU:1&quot;.</span>
+
+<span class="sd">        :param key: key to store function at</span>
+<span class="sd">        :type key: str</span>
+<span class="sd">        :param function: callable function</span>
+<span class="sd">        :type function: callable</span>
+<span class="sd">        :param device: device to run function on, defaults to &quot;CPU&quot;</span>
+<span class="sd">        :type device: str, optional</span>
+<span class="sd">        :raises TypeError: if argument was not a callable function</span>
+<span class="sd">        :raises RedisReplyError: if function failed to set</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">device</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__check_device</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">callable</span><span class="p">(</span><span class="n">function</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Argument provided was not a callable function&quot;</span><span class="p">)</span>
+        <span class="n">fn_src</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getsource</span><span class="p">(</span><span class="n">function</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">set_script</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">fn_src</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">RedisReplyError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="s2">&quot;set_function&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="bp">None</span></div>
+
+<div class="viewcode-block" id="Client.set_script"><a class="viewcode-back" href="../../api/smartredis_api.html#smartredis.Client.set_script">[docs]</a>    <span class="k">def</span> <span class="nf">set_script</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">script</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;CPU&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Store a TorchScript at key in database</span>
+
+<span class="sd">        Device selection is either &quot;GPU&quot; or &quot;CPU&quot;. If many devices are</span>
+<span class="sd">        present, a number can be passed for specification e.g. &quot;GPU:1&quot;.</span>
+
+<span class="sd">        :param key: key to store script under</span>
+<span class="sd">        :type key: str</span>
+<span class="sd">        :param script: TorchScript code</span>
+<span class="sd">        :type script: str</span>
+<span class="sd">        :param device: device for script execution, defaults to &quot;CPU&quot;</span>
+<span class="sd">        :type device: str, optional</span>
+<span class="sd">        :raises RedisReplyError: if script fails to set</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">device</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__check_device</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">set_script</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">script</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">RedisReplyError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="s2">&quot;set_script&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="bp">None</span></div>
+
+<div class="viewcode-block" id="Client.set_script_from_file"><a class="viewcode-back" href="../../api/smartredis_api.html#smartredis.Client.set_script_from_file">[docs]</a>    <span class="k">def</span> <span class="nf">set_script_from_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;CPU&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Same as Client.set_script but from file</span>
+
+<span class="sd">        :param key: key to store script under</span>
+<span class="sd">        :type key: str</span>
+<span class="sd">        :param file: path to TorchScript code</span>
+<span class="sd">        :type file: str</span>
+<span class="sd">        :param device: device for script execution, defaults to &quot;CPU&quot;</span>
+<span class="sd">        :type device: str, optional</span>
+<span class="sd">        :raises RedisReplyError: if script fails to set</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">device</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__check_device</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">file_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__check_file</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">set_script_from_file</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">file_path</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">RedisReplyError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="s2">&quot;set_script_from_file&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="bp">None</span></div>
+
+<div class="viewcode-block" id="Client.get_script"><a class="viewcode-back" href="../../api/smartredis_api.html#smartredis.Client.get_script">[docs]</a>    <span class="k">def</span> <span class="nf">get_script</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get a Torchscript stored in the database</span>
+
+<span class="sd">        :param key: key at which script is stored</span>
+<span class="sd">        :type key: str</span>
+<span class="sd">        :raises RedisReplyError: if script doesn&#39;t exist</span>
+<span class="sd">        :return: TorchScript stored at key</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">script</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_script</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">script</span>
+        <span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">RedisReplyError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="s2">&quot;get_script&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="bp">None</span></div>
+
+<div class="viewcode-block" id="Client.run_script"><a class="viewcode-back" href="../../api/smartredis_api.html#smartredis.Client.run_script">[docs]</a>    <span class="k">def</span> <span class="nf">run_script</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">fn_name</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Execute TorchScript stored inside the database remotely</span>
+
+<span class="sd">        :param key: key script is stored under</span>
+<span class="sd">        :type key: str</span>
+<span class="sd">        :param fn_name: name of the function within the script to execute</span>
+<span class="sd">        :type fn_name: str</span>
+<span class="sd">        :param inputs: list of input tensors stored in database</span>
+<span class="sd">        :type inputs: list[str]</span>
+<span class="sd">        :param outputs: list of output tensor names to store results under</span>
+<span class="sd">        :type outputs: list[str]</span>
+<span class="sd">        :raises RedisReplyError: if script execution fails</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__check_tensor_args</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">run_script</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">fn_name</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">RedisReplyError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="s2">&quot;run_script&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="bp">None</span></div>
+
+<div class="viewcode-block" id="Client.get_model"><a class="viewcode-back" href="../../api/smartredis_api.html#smartredis.Client.get_model">[docs]</a>    <span class="k">def</span> <span class="nf">get_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get a stored model</span>
+
+<span class="sd">        :param key: key of stored model</span>
+<span class="sd">        :type key: str</span>
+<span class="sd">        :raises RedisReplyError: if get fails or model doesnt exist</span>
+<span class="sd">        :return: model</span>
+<span class="sd">        :rtype: bytes</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">model</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_model</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">model</span>
+        <span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">RedisReplyError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="s2">&quot;get_model&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Client.set_model"><a class="viewcode-back" href="../../api/smartredis_api.html#smartredis.Client.set_model">[docs]</a>    <span class="k">def</span> <span class="nf">set_model</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">key</span><span class="p">,</span>
+        <span class="n">model</span><span class="p">,</span>
+        <span class="n">backend</span><span class="p">,</span>
+        <span class="n">device</span><span class="o">=</span><span class="s2">&quot;CPU&quot;</span><span class="p">,</span>
+        <span class="n">batch_size</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">min_batch_size</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">tag</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">inputs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">outputs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Put a TF, TF-lite, PT, or ONNX model in the database</span>
+
+<span class="sd">        :param key: key to store model under</span>
+<span class="sd">        :type key: str</span>
+<span class="sd">        :param model: serialized model</span>
+<span class="sd">        :type model: bytes</span>
+<span class="sd">        :param backend: name of the backend (TORCH, TF, TFLITE, ONNX)</span>
+<span class="sd">        :type backend: str</span>
+<span class="sd">        :param device: name of device for execution, defaults to &quot;CPU&quot;</span>
+<span class="sd">        :type device: str, optional</span>
+<span class="sd">        :param batch_size: batch size for execution, defaults to 0</span>
+<span class="sd">        :type batch_size: int, optional</span>
+<span class="sd">        :param min_batch_size: minimum batch size for model execution, defaults to 0</span>
+<span class="sd">        :type min_batch_size: int, optional</span>
+<span class="sd">        :param tag: additional tag for model information, defaults to &quot;&quot;</span>
+<span class="sd">        :type tag: str, optional</span>
+<span class="sd">        :param inputs: model inputs (TF only), defaults to None</span>
+<span class="sd">        :type inputs: list[str], optional</span>
+<span class="sd">        :param outputs: model outupts (TF only), defaults to None</span>
+<span class="sd">        :type outputs: list[str], optional</span>
+<span class="sd">        :raises RedisReplyError: if model fails to set</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">device</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__check_device</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">backend</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__check_backend</span><span class="p">(</span><span class="n">backend</span><span class="p">)</span>
+        <span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__check_tensor_args</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">set_model</span><span class="p">(</span>
+                <span class="n">key</span><span class="p">,</span>
+                <span class="n">model</span><span class="p">,</span>
+                <span class="n">backend</span><span class="p">,</span>
+                <span class="n">device</span><span class="p">,</span>
+                <span class="n">batch_size</span><span class="p">,</span>
+                <span class="n">min_batch_size</span><span class="p">,</span>
+                <span class="n">tag</span><span class="p">,</span>
+                <span class="n">inputs</span><span class="p">,</span>
+                <span class="n">outputs</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">RedisReplyError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="s2">&quot;set_model&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="bp">None</span></div>
+
+<div class="viewcode-block" id="Client.set_model_from_file"><a class="viewcode-back" href="../../api/smartredis_api.html#smartredis.Client.set_model_from_file">[docs]</a>    <span class="k">def</span> <span class="nf">set_model_from_file</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">key</span><span class="p">,</span>
+        <span class="n">model_file</span><span class="p">,</span>
+        <span class="n">backend</span><span class="p">,</span>
+        <span class="n">device</span><span class="o">=</span><span class="s2">&quot;CPU&quot;</span><span class="p">,</span>
+        <span class="n">batch_size</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">min_batch_size</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">tag</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">inputs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">outputs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Put a TF, TF-lite, PT, or ONNX model from file in the database</span>
+
+<span class="sd">        :param key: key to store model under</span>
+<span class="sd">        :type key: str</span>
+<span class="sd">        :param model_file: serialized model</span>
+<span class="sd">        :type model_file: file path to model</span>
+<span class="sd">        :param backend: name of the backend (TORCH, TF, TFLITE, ONNX)</span>
+<span class="sd">        :type backend: str</span>
+<span class="sd">        :param device: name of device for execution, defaults to &quot;CPU&quot;</span>
+<span class="sd">        :type device: str, optional</span>
+<span class="sd">        :param batch_size: batch size for execution, defaults to 0</span>
+<span class="sd">        :type batch_size: int, optional</span>
+<span class="sd">        :param min_batch_size: minimum batch size for model execution, defaults to 0</span>
+<span class="sd">        :type min_batch_size: int, optional</span>
+<span class="sd">        :param tag: additional tag for model information, defaults to &quot;&quot;</span>
+<span class="sd">        :type tag: str, optional</span>
+<span class="sd">        :param inputs: model inputs (TF only), defaults to None</span>
+<span class="sd">        :type inputs: list[str], optional</span>
+<span class="sd">        :param outputs: model outupts (TF only), defaults to None</span>
+<span class="sd">        :type outputs: list[str], optional</span>
+<span class="sd">        :raises RedisReplyError: if model fails to set</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">device</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__check_device</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">backend</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__check_backend</span><span class="p">(</span><span class="n">backend</span><span class="p">)</span>
+        <span class="n">m_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__check_file</span><span class="p">(</span><span class="n">model_file</span><span class="p">)</span>
+        <span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__check_tensor_args</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">set_model_from_file</span><span class="p">(</span>
+                <span class="n">key</span><span class="p">,</span>
+                <span class="n">m_file</span><span class="p">,</span>
+                <span class="n">backend</span><span class="p">,</span>
+                <span class="n">device</span><span class="p">,</span>
+                <span class="n">batch_size</span><span class="p">,</span>
+                <span class="n">min_batch_size</span><span class="p">,</span>
+                <span class="n">tag</span><span class="p">,</span>
+                <span class="n">inputs</span><span class="p">,</span>
+                <span class="n">outputs</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">RedisReplyError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="s2">&quot;set_model_from_file&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="bp">None</span></div>
+
+<div class="viewcode-block" id="Client.run_model"><a class="viewcode-back" href="../../api/smartredis_api.html#smartredis.Client.run_model">[docs]</a>    <span class="k">def</span> <span class="nf">run_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">inputs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">outputs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Execute a stored model</span>
+
+<span class="sd">        :param key: key for stored model</span>
+<span class="sd">        :type key: str</span>
+<span class="sd">        :param inputs: keys of stored inputs to provide model, defaults to None</span>
+<span class="sd">        :type inputs: list[str], optional</span>
+<span class="sd">        :param outputs: keys to store outputs under, defaults to None</span>
+<span class="sd">        :type outputs: list[str], optional</span>
+<span class="sd">        :raises RedisReplyError: if model execution fails</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__check_tensor_args</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">run_model</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">RedisReplyError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="s2">&quot;run_model&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Client.tensor_exists"><a class="viewcode-back" href="../../api/smartredis_api.html#smartredis.Client.tensor_exists">[docs]</a>    <span class="k">def</span> <span class="nf">tensor_exists</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Check if a tensor or dataset exists in the database</span>
+
+<span class="sd">        The key associated to the entity will be</span>
+<span class="sd">        computed internally based on the current prefix behavior.</span>
+
+<span class="sd">        :param key: The tensor or dataset name that will be checked in the database</span>
+<span class="sd">        :type key: str</span>
+<span class="sd">        :returns: Returns true if the tensor or dataset exists in the database</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        :raises RedisReplyError: if `tensor_exists` fails (i.e. causes an error)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">tensor_exists</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">RedisReplyError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="s2">&quot;tensor_exists&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Client.model_exists"><a class="viewcode-back" href="../../api/smartredis_api.html#smartredis.Client.model_exists">[docs]</a>    <span class="k">def</span> <span class="nf">model_exists</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Check if a model or script exists in the database</span>
+
+<span class="sd">        The key associated to the entity will be</span>
+<span class="sd">        computed internally based on the current prefix behavior.</span>
+
+<span class="sd">        :param key: The model or script name that will be checked in the database</span>
+<span class="sd">        :type key: str</span>
+<span class="sd">        :returns: Returns true if the model exists in the database</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        :raises RedisReplyError: if `model_exists` fails (i.e. causes an error)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">model_exists</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">RedisReplyError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="s2">&quot;model_exists&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Client.key_exists"><a class="viewcode-back" href="../../api/smartredis_api.html#smartredis.Client.key_exists">[docs]</a>    <span class="k">def</span> <span class="nf">key_exists</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Check if the key exists in the database</span>
+
+<span class="sd">        :param key: The key that will be checked in the database</span>
+<span class="sd">        :type key: str</span>
+<span class="sd">        :returns: Returns true if the key exists in the database</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        :raises RedisReplyError: if `key_exists` fails</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">key_exists</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">RedisReplyError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="s2">&quot;key_exists&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Client.poll_key"><a class="viewcode-back" href="../../api/smartredis_api.html#smartredis.Client.poll_key">[docs]</a>    <span class="k">def</span> <span class="nf">poll_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">poll_frequency_ms</span><span class="p">,</span> <span class="n">num_tries</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Check if the key exists in the database</span>
+
+<span class="sd">        The check is performed repeatedly at a</span>
+<span class="sd">        specified frequency for a specified number</span>
+<span class="sd">        of times.</span>
+
+<span class="sd">        :param key: The key that will be checked in the database</span>
+<span class="sd">        :type key: int</span>
+<span class="sd">        :param poll_frequency_ms: The frequency of checks for the</span>
+<span class="sd">                                  key in milliseconds</span>
+<span class="sd">        :type poll_frequency_ms: int</span>
+<span class="sd">        :param num_tries: The total number of times to check for</span>
+<span class="sd">                          the specified number of keys.  If the</span>
+<span class="sd">                          value is set to -1, the key will be</span>
+<span class="sd">                          polled indefinitely.</span>
+<span class="sd">        :type num_tries: int</span>
+<span class="sd">        :returns: Returns true if the key is found within the</span>
+<span class="sd">                 specified number of tries, otherwise false.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        :raises RedisReplyError: if key poll fails</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">poll_key</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">poll_frequency_ms</span><span class="p">,</span> <span class="n">num_tries</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">RedisReplyError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="s2">&quot;poll_key&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Client.poll_tensor"><a class="viewcode-back" href="../../api/smartredis_api.html#smartredis.Client.poll_tensor">[docs]</a>    <span class="k">def</span> <span class="nf">poll_tensor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">poll_frequency_ms</span><span class="p">,</span> <span class="n">num_tries</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Check if a tensor or dataset exists in the database</span>
+
+<span class="sd">        The check will be performed at a</span>
+<span class="sd">        specified frequency for a specified number</span>
+<span class="sd">        of times. The key associated to the entity will be</span>
+<span class="sd">        computed internally based on the current prefix behavior.</span>
+
+<span class="sd">        :param key: The key that will be checked in the database</span>
+<span class="sd">        :type key: int</span>
+<span class="sd">        :param poll_frequency_ms: The frequency of checks for the</span>
+<span class="sd">                                  key in milliseconds</span>
+<span class="sd">        :type poll_frequency_ms: int</span>
+<span class="sd">        :param num_tries: The total number of times to check for</span>
+<span class="sd">                          the specified number of keys.  If the</span>
+<span class="sd">                          value is set to -1, the key will be</span>
+<span class="sd">                          polled indefinitely.</span>
+<span class="sd">        :type num_tries: int</span>
+<span class="sd">        :returns: Returns true if the key is found within the</span>
+<span class="sd">                 specified number of tries, otherwise false.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        :raises RedisReplyError: if `poll_tensor` fails</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">poll_tensor</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">poll_frequency_ms</span><span class="p">,</span> <span class="n">num_tries</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">RedisReplyError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="s2">&quot;poll_tensor&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Client.poll_model"><a class="viewcode-back" href="../../api/smartredis_api.html#smartredis.Client.poll_model">[docs]</a>    <span class="k">def</span> <span class="nf">poll_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">poll_frequency_ms</span><span class="p">,</span> <span class="n">num_tries</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Check if a model or script exists in the database</span>
+
+<span class="sd">        The check will be performed at a</span>
+<span class="sd">        specified frequency for a specified number</span>
+<span class="sd">        of times. The key associated to the entity will be</span>
+<span class="sd">        computed internally based on the current prefix behavior.</span>
+
+<span class="sd">        :param key: The key that will be checked in the database</span>
+<span class="sd">        :type key: int</span>
+<span class="sd">        :param poll_frequency_ms: The frequency of checks for the</span>
+<span class="sd">                                  key in milliseconds</span>
+<span class="sd">        :type poll_frequency_ms: int</span>
+<span class="sd">        :param num_tries: The total number of times to check for</span>
+<span class="sd">                          the specified number of keys.  If the</span>
+<span class="sd">                          value is set to -1, the key will be</span>
+<span class="sd">                          polled indefinitely.</span>
+<span class="sd">        :type num_tries: int</span>
+<span class="sd">        :returns: Returns true if the key is found within the</span>
+<span class="sd">                 specified number of tries, otherwise false.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        :raises RedisReplyError: if `poll_model` fails</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">poll_model</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">poll_frequency_ms</span><span class="p">,</span> <span class="n">num_tries</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">RedisReplyError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="s2">&quot;poll_model&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Client.set_data_source"><a class="viewcode-back" href="../../api/smartredis_api.html#smartredis.Client.set_data_source">[docs]</a>    <span class="k">def</span> <span class="nf">set_data_source</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source_id</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set the data source (i.e. key prefix for get functions)</span>
+
+<span class="sd">        :param source_id: The prefix for retrieval commands</span>
+<span class="sd">        :type source_id: str</span>
+<span class="sd">        :raises RedisReplyError: if set data</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">set_data_source</span><span class="p">(</span><span class="n">source_id</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="s2">&quot;set_data_source&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Client.use_model_ensemble_prefix"><a class="viewcode-back" href="../../api/smartredis_api.html#smartredis.Client.use_model_ensemble_prefix">[docs]</a>    <span class="k">def</span> <span class="nf">use_model_ensemble_prefix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">use_prefix</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set whether model and script keys should be prefixed</span>
+
+<span class="sd">        This function can be used to avoid key collisions in an ensemble.</span>
+<span class="sd">        Prefixes will only be used if they were previously set through</span>
+<span class="sd">        environment variables SSKEYIN and SSKEYOUT.</span>
+<span class="sd">        By default, the client does not prefix model and script</span>
+<span class="sd">        keys.</span>
+
+<span class="sd">        :param use_prefix: If set to true, all future operations</span>
+<span class="sd">                           on models and scripts will use a prefix, if</span>
+<span class="sd">                           available.</span>
+<span class="sd">        :type use_prefix: bool</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">use_model_ensemble_prefix</span><span class="p">(</span><span class="n">use_prefix</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">RedisReplyError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="s2">&quot;use_model_ensemble_prefix&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Client.use_tensor_ensemble_prefix"><a class="viewcode-back" href="../../api/smartredis_api.html#smartredis.Client.use_tensor_ensemble_prefix">[docs]</a>    <span class="k">def</span> <span class="nf">use_tensor_ensemble_prefix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">use_prefix</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set whether tensor and dataset keys should be prefixed</span>
+
+<span class="sd">        This function can be used to avoid key collisions in an ensemble.</span>
+<span class="sd">        Prefixes will only be used if they were previously set through</span>
+<span class="sd">        environment variables SSKEYIN and SSKEYOUT.</span>
+<span class="sd">        By default, the client prefixes tensor and dataset</span>
+<span class="sd">        keys when a prefix is available.</span>
+
+<span class="sd">        :param use_prefix: If set to true, all future operations</span>
+<span class="sd">                           on tensors and datasets will use a prefix, if</span>
+<span class="sd">                           available.</span>
+<span class="sd">        :type use_prefix: bool</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">use_tensor_ensemble_prefix</span><span class="p">(</span><span class="n">use_prefix</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">RedisReplyError</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="s2">&quot;use_tensor_ensemble_prefix&quot;</span><span class="p">)</span></div>
+
+
+    <span class="c1"># ---- helpers --------------------------------------------------------</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">__check_tensor_args</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">):</span>
+        <span class="n">inputs</span> <span class="o">=</span> <span class="n">init_default</span><span class="p">([],</span> <span class="n">inputs</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">str</span><span class="p">))</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="n">init_default</span><span class="p">([],</span> <span class="n">outputs</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">str</span><span class="p">))</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">inputs</span> <span class="o">=</span> <span class="p">[</span><span class="n">inputs</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">outputs</span> <span class="o">=</span> <span class="p">[</span><span class="n">outputs</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">__check_backend</span><span class="p">(</span><span class="n">backend</span><span class="p">):</span>
+        <span class="n">backend</span> <span class="o">=</span> <span class="n">backend</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">backend</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;TF&quot;</span><span class="p">,</span> <span class="s2">&quot;TFLITE&quot;</span><span class="p">,</span> <span class="s2">&quot;TORCH&quot;</span><span class="p">,</span> <span class="s2">&quot;ONNX&quot;</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="n">backend</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Backend type </span><span class="si">{</span><span class="n">backend</span><span class="si">}</span><span class="s2"> unsupported&quot;</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">__check_file</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
+        <span class="n">file_path</span> <span class="o">=</span> <span class="n">osp</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">osp</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">file_path</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">__check_device</span><span class="p">(</span><span class="n">device</span><span class="p">):</span>
+        <span class="n">device</span> <span class="o">=</span> <span class="n">device</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">device</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;CPU&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">device</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;GPU&quot;</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Device argument must start with either CPU or GPU&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">device</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">__set_address</span><span class="p">(</span><span class="n">address</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s2">&quot;SSDB&quot;</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">:</span>
+            <span class="k">del</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;SSDB&quot;</span><span class="p">]</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;SSDB&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">address</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Hewlett Packard Enterprise.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
