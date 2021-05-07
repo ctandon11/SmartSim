@@ -1,0 +1,2714 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>SmartSim API &mdash; SmartSim 0.3.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="SmartRedis" href="../smartredis.html" />
+    <link rel="prev" title="Launchers" href="../launchers.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> SmartSim
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Overview of SmartSim</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../community.html">Community</a></li>
+</ul>
+<p class="caption"><span class="caption-text">tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/01_getting_started/01_getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/smartredis.html">Using SmartRedis Clients</a></li>
+</ul>
+<p class="caption"><span class="caption-text">SmartSim</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../experiment.html">Experiments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../orchestrator.html">Orchestrator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../launchers.html">Launchers</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">SmartSim API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#experiment">Experiment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#settings">Settings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#local">Local</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#srunsettings">SrunSettings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sbatchsettings">SbatchSettings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#aprunsettings">AprunSettings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#qsubbatchsettings">QsubBatchSettings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cobaltbatchsettings">CobaltBatchSettings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mpirunsettings">MpirunSettings</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#orchestrator">Orchestrator</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#local-orchestrator">Local Orchestrator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pbspro-orchestrator">PBSPro Orchestrator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#slurm-orchestrator">Slurm Orchestrator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cobalt-orchestrator">Cobalt Orchestrator</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#entity">Entity</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ensemble">Ensemble</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#model">Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#slurm">Slurm</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">SmartRedis</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../smartredis.html">SmartRedis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sr_data_structures.html">Data Structures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sr_runtime.html">Runtime Requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="smartredis_api.html">SmartRedis API</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../code_of_conduct.html">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer.html">Developer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SmartSim</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>SmartSim API</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/api/smartsim_api.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="smartsim-api">
+<h1>SmartSim API<a class="headerlink" href="#smartsim-api" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="experiment">
+<h2>Experiment<a class="headerlink" href="#experiment" title="Permalink to this headline">¶</a></h2>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">Experiment.__init__</span></code>(name[, exp_path, launcher])</p></td>
+<td><p>Initialize an <code class="docutils literal notranslate"><span class="pre">Experiment</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#smartsim.experiment.Experiment.start" title="smartsim.experiment.Experiment.start"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Experiment.start</span></code></a>(*args[, block, summary])</p></td>
+<td><p>Launch instances passed as arguments</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#smartsim.experiment.Experiment.stop" title="smartsim.experiment.Experiment.stop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Experiment.stop</span></code></a>(*args)</p></td>
+<td><p>Stop specific instances launched by this <code class="docutils literal notranslate"><span class="pre">Experiment</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#smartsim.experiment.Experiment.create_ensemble" title="smartsim.experiment.Experiment.create_ensemble"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Experiment.create_ensemble</span></code></a>(name[, params, …])</p></td>
+<td><p>Create an <code class="docutils literal notranslate"><span class="pre">Ensemble</span></code> of <code class="docutils literal notranslate"><span class="pre">Model</span></code> instances</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#smartsim.experiment.Experiment.create_model" title="smartsim.experiment.Experiment.create_model"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Experiment.create_model</span></code></a>(name, run_settings)</p></td>
+<td><p>Create a <code class="docutils literal notranslate"><span class="pre">Model</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#smartsim.experiment.Experiment.generate" title="smartsim.experiment.Experiment.generate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Experiment.generate</span></code></a>(*args[, tag, overwrite])</p></td>
+<td><p>Generate the file structure for an <code class="docutils literal notranslate"><span class="pre">Experiment</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#smartsim.experiment.Experiment.poll" title="smartsim.experiment.Experiment.poll"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Experiment.poll</span></code></a>([interval, verbose])</p></td>
+<td><p>Monitor jobs through logging to stdout.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#smartsim.experiment.Experiment.finished" title="smartsim.experiment.Experiment.finished"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Experiment.finished</span></code></a>(entity)</p></td>
+<td><p>Query if a job as completed</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#smartsim.experiment.Experiment.get_status" title="smartsim.experiment.Experiment.get_status"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Experiment.get_status</span></code></a>(*args)</p></td>
+<td><p>Query the status of a job</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#smartsim.experiment.Experiment.reconnect_orchestrator" title="smartsim.experiment.Experiment.reconnect_orchestrator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Experiment.reconnect_orchestrator</span></code></a>(checkpoint)</p></td>
+<td><p>Reconnect to a running <code class="docutils literal notranslate"><span class="pre">Orchestrator</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#smartsim.experiment.Experiment.summary" title="smartsim.experiment.Experiment.summary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Experiment.summary</span></code></a>()</p></td>
+<td><p>Return a summary of the <code class="docutils literal notranslate"><span class="pre">Experiment</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="smartsim.experiment.Experiment">
+<em class="property">class </em><code class="sig-name descname">Experiment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">exp_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">launcher</span><span class="o">=</span><span class="default_value">'local'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/experiment.html#Experiment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.experiment.Experiment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Experiments are the main user interface in SmartSim.</p>
+<p>Experiments can create instances to launch called <code class="docutils literal notranslate"><span class="pre">Model</span></code>
+and <code class="docutils literal notranslate"><span class="pre">Ensemble</span></code>. Through the <code class="docutils literal notranslate"><span class="pre">Experiment</span></code> interface, users
+can programmatically create, configure, start, stop, and
+query the instances they create.</p>
+<p>Initialize an <code class="docutils literal notranslate"><span class="pre">Experiment</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – name for the <code class="docutils literal notranslate"><span class="pre">Experiment</span></code></p></li>
+<li><p><strong>exp_path</strong> (<em>str</em>) – path to location of <code class="docutils literal notranslate"><span class="pre">Experiment</span></code> directory if generated</p></li>
+<li><p><strong>launcher</strong> (<em>str</em>) – type of launcher, options are “slurm”, “pbs”,
+“cobalt”, or “local”. Defaults to “local”</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="smartsim.experiment.Experiment.create_ensemble">
+<code class="sig-name descname">create_ensemble</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">params</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">batch_settings</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">run_settings</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">replicas</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">perm_strategy</span><span class="o">=</span><span class="default_value">'all_perm'</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/experiment.html#Experiment.create_ensemble"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.experiment.Experiment.create_ensemble" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an <code class="docutils literal notranslate"><span class="pre">Ensemble</span></code> of <code class="docutils literal notranslate"><span class="pre">Model</span></code> instances</p>
+<p>Ensembles can be launched sequentially or as a batch
+if using a non-local launcher. e.g. slurm</p>
+<p>Ensembles require one of the following combinations
+of arguments</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">run_settings</span></code> and <code class="docutils literal notranslate"><span class="pre">params</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">run_settings</span></code> and <code class="docutils literal notranslate"><span class="pre">replicas</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">batch_settings</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">batch_settings</span></code>, <code class="docutils literal notranslate"><span class="pre">run_settings</span></code>, and <code class="docutils literal notranslate"><span class="pre">params</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">batch_settings</span></code>, <code class="docutils literal notranslate"><span class="pre">run_settings</span></code>, and <code class="docutils literal notranslate"><span class="pre">replicas</span></code></p></li>
+</ul>
+</div></blockquote>
+<p>If given solely batch settings, an empty ensemble
+will be created that models can be added to manually
+through <code class="docutils literal notranslate"><span class="pre">Ensemble.add_model()</span></code>.
+The entire ensemble will launch as one batch.</p>
+<p>Provided batch and run settings, either <code class="docutils literal notranslate"><span class="pre">params</span></code>
+or <code class="docutils literal notranslate"><span class="pre">replicas</span></code> must be passed and the entire ensemble
+will launch as a single batch.</p>
+<p>Provided solely run settings, either <code class="docutils literal notranslate"><span class="pre">params</span></code>
+or <code class="docutils literal notranslate"><span class="pre">replicas</span></code> must be passed and the ensemble members
+will each launch sequentially.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – name of the ensemble</p></li>
+<li><p><strong>params</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – parameters to expand into <code class="docutils literal notranslate"><span class="pre">Model</span></code> members</p></li>
+<li><p><strong>batch_settings</strong> (<em>BatchSettings</em>) – describes settings for <code class="docutils literal notranslate"><span class="pre">Ensemble</span></code> as batch workload</p></li>
+<li><p><strong>run_settings</strong> (<a class="reference internal" href="#smartsim.settings.RunSettings" title="smartsim.settings.RunSettings"><em>RunSettings</em></a>) – describes how each <code class="docutils literal notranslate"><span class="pre">Model</span></code> should be executed</p></li>
+<li><p><strong>replicas</strong> (<em>int</em>) – number of replicas to create</p></li>
+<li><p><strong>perm_strategy</strong> (<em>str</em>) – strategy for expanding <code class="docutils literal notranslate"><span class="pre">params</span></code> into
+<code class="docutils literal notranslate"><span class="pre">Model</span></code> instances from params argument
+options are “all_perm”, “stepped”, “random”
+or a callable function</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>SmartSimError</strong> – if initialization fails</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Ensemble</span></code> instance</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#smartsim.entity.ensemble.Ensemble" title="smartsim.entity.ensemble.Ensemble">Ensemble</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.experiment.Experiment.create_model">
+<code class="sig-name descname">create_model</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">run_settings</span></em>, <em class="sig-param"><span class="n">params</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">enable_key_prefixing</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/experiment.html#Experiment.create_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.experiment.Experiment.create_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a <code class="docutils literal notranslate"><span class="pre">Model</span></code></p>
+<p>By default, all <code class="docutils literal notranslate"><span class="pre">Model</span></code> instances start with the cwd
+as their path unless specified. If specified or not, upon
+user passing the instance to <code class="docutils literal notranslate"><span class="pre">Experiment.generate()</span></code>,
+the <code class="docutils literal notranslate"><span class="pre">Model</span></code> path will be overwritten and replaced
+with the created directory for the <code class="docutils literal notranslate"><span class="pre">Model</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – name of the model</p></li>
+<li><p><strong>run_settings</strong> (<em>dict</em>) – defines how <code class="docutils literal notranslate"><span class="pre">Model</span></code> should be run,</p></li>
+<li><p><strong>params</strong> (<em>dict</em><em>, </em><em>optional</em>) – model parameters for writing into configuration files</p></li>
+<li><p><strong>path</strong> (<em>str</em><em>, </em><em>optional</em>) – path to where the model should be executed at runtime</p></li>
+<li><p><strong>enable_key_prefixing</strong> (<em>bool</em>) – If true, data sent to the Orchestrator
+using SmartRedis from this <code class="docutils literal notranslate"><span class="pre">Model</span></code> will
+be prefixed with the <code class="docutils literal notranslate"><span class="pre">Model</span></code> name.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>SmartSimError</strong> – if initialization fails</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the created <code class="docutils literal notranslate"><span class="pre">Model</span></code></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#smartsim.entity.model.Model" title="smartsim.entity.model.Model">Model</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.experiment.Experiment.finished">
+<code class="sig-name descname">finished</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">entity</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/experiment.html#Experiment.finished"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.experiment.Experiment.finished" title="Permalink to this definition">¶</a></dt>
+<dd><p>Query if a job as completed</p>
+<p>A instance of <code class="docutils literal notranslate"><span class="pre">Model</span></code>, <code class="docutils literal notranslate"><span class="pre">Ensemble</span></code> can be passed
+as an argument.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>entity</strong> (<em>SmartSimEntity | EntityList</em>) – object launched by this <code class="docutils literal notranslate"><span class="pre">Experiment</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if job has completed</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.experiment.Experiment.generate">
+<code class="sig-name descname">generate</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="n">tag</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">overwrite</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/experiment.html#Experiment.generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.experiment.Experiment.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate the file structure for an <code class="docutils literal notranslate"><span class="pre">Experiment</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">Experiment.generate</span></code> creates directories for each instance
+passed to organize Experiments that launch many instances</p>
+<p>If files or directories are attached to <code class="docutils literal notranslate"><span class="pre">Model</span></code> objects
+using <code class="docutils literal notranslate"><span class="pre">Model.attach_generator_files()</span></code>, those files or
+directories will be symlinked, copied, or configured and
+written into the created directory for that instance.</p>
+<p>Instances of <code class="docutils literal notranslate"><span class="pre">Model</span></code>, <code class="docutils literal notranslate"><span class="pre">Ensemble</span></code> and <code class="docutils literal notranslate"><span class="pre">Orchestrator</span></code>
+can all be passed as arguments to the generate method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tag</strong> (<em>str</em><em>, </em><em>optional</em>) – tag used in <cite>to_configure</cite> generator files</p></li>
+<li><p><strong>overwrite</strong> (<em>bool</em><em>, </em><em>optional</em>) – overwrite existing folders and contents</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.experiment.Experiment.get_status">
+<code class="sig-name descname">get_status</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/experiment.html#Experiment.get_status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.experiment.Experiment.get_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Query the status of a job</p>
+<p>Instances of <code class="docutils literal notranslate"><span class="pre">Model</span></code>, <code class="docutils literal notranslate"><span class="pre">Ensemble</span></code> and <code class="docutils literal notranslate"><span class="pre">Orchestrator</span></code>
+can all be passed as arguments to <code class="docutils literal notranslate"><span class="pre">Experiment.get_status()</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>status of the job</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list[str]</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>SmartSimError</strong> – if status retrieval fails</p></li>
+<li><p><strong>TypeError</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.experiment.Experiment.poll">
+<code class="sig-name descname">poll</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">interval</span><span class="o">=</span><span class="default_value">10</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/experiment.html#Experiment.poll"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.experiment.Experiment.poll" title="Permalink to this definition">¶</a></dt>
+<dd><p>Monitor jobs through logging to stdout.</p>
+<p>This method should only be used if jobs were launched
+with <code class="docutils literal notranslate"><span class="pre">Experiment.start(block=False)</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>interval</strong> (<em>int</em>) – frequency of logging to stdout</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em>) – set verbosity</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>SmartSimError</strong> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.experiment.Experiment.reconnect_orchestrator">
+<code class="sig-name descname">reconnect_orchestrator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">checkpoint</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/experiment.html#Experiment.reconnect_orchestrator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.experiment.Experiment.reconnect_orchestrator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reconnect to a running <code class="docutils literal notranslate"><span class="pre">Orchestrator</span></code></p>
+<p>This method can be used to connect to a Redis deployment
+that was launched by a previous <code class="docutils literal notranslate"><span class="pre">Experiment</span></code>. This way
+users can run many experiments utilizing the same Redis
+deployment</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>checkpoint</strong> (<em>str</em>) – the <cite>smartsim_db.dat</cite> file created
+when an <code class="docutils literal notranslate"><span class="pre">Orchestrator</span></code> is launched</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.experiment.Experiment.start">
+<code class="sig-name descname">start</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="n">block</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">summary</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/experiment.html#Experiment.start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.experiment.Experiment.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Launch instances passed as arguments</p>
+<p>Start the <code class="docutils literal notranslate"><span class="pre">Experiment</span></code> by turning specified instances into jobs
+for the underlying launcher and launching them.</p>
+<p>Instances of <code class="docutils literal notranslate"><span class="pre">Model</span></code>, <code class="docutils literal notranslate"><span class="pre">Ensemble</span></code> and <code class="docutils literal notranslate"><span class="pre">Orchestrator</span></code>
+can all be passed as arguments to the start method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>block</strong> (<em>bool</em><em>, </em><em>optional</em>) – block execution until all non-database
+jobs are finished, defaults to True</p></li>
+<li><p><strong>summary</strong> (<em>bool</em><em>, </em><em>optional</em>) – print a launch summary prior to launch,
+defaults to False</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.experiment.Experiment.stop">
+<code class="sig-name descname">stop</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/experiment.html#Experiment.stop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.experiment.Experiment.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stop specific instances launched by this <code class="docutils literal notranslate"><span class="pre">Experiment</span></code></p>
+<p>Instances of <code class="docutils literal notranslate"><span class="pre">Model</span></code>, <code class="docutils literal notranslate"><span class="pre">Ensemble</span></code> and <code class="docutils literal notranslate"><span class="pre">Orchestrator</span></code>
+can all be passed as arguments to the start method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>TypeError</strong> – if wrong type</p></li>
+<li><p><strong>SmartSimError</strong> – if stop request fails</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.experiment.Experiment.summary">
+<code class="sig-name descname">summary</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/experiment.html#Experiment.summary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.experiment.Experiment.summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a summary of the <code class="docutils literal notranslate"><span class="pre">Experiment</span></code></p>
+<p>The summary will show each instance that has been
+launched and completed in this <code class="docutils literal notranslate"><span class="pre">Experiment</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Dataframe of <code class="docutils literal notranslate"><span class="pre">Experiment</span></code> history</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="settings">
+<h2>Settings<a class="headerlink" href="#settings" title="Permalink to this headline">¶</a></h2>
+<p>Settings are provided to <code class="docutils literal notranslate"><span class="pre">Model</span></code> and <code class="docutils literal notranslate"><span class="pre">Ensemble</span></code> objects
+to provide parameters for how a job should be executed. Some
+are specifically meant for certain launchers like <code class="docutils literal notranslate"><span class="pre">SbatchSettings</span></code>
+is solely meant for system using Slurm as a workload manager.
+<code class="docutils literal notranslate"><span class="pre">MpirunSettings</span></code> for OpenMPI based jobs is supported by Slurm,
+PBSPro, and Cobalt.</p>
+<p>Types of Settings:</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#smartsim.settings.RunSettings" title="smartsim.settings.RunSettings"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RunSettings</span></code></a>(exe[, exe_args, run_command, …])</p></td>
+<td><p>Run parameters for a <code class="docutils literal notranslate"><span class="pre">Model</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#smartsim.settings.SrunSettings" title="smartsim.settings.SrunSettings"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SrunSettings</span></code></a>(exe[, exe_args, run_args, …])</p></td>
+<td><p>Initialize run parameters for a slurm job with <code class="docutils literal notranslate"><span class="pre">srun</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#smartsim.settings.SbatchSettings" title="smartsim.settings.SbatchSettings"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SbatchSettings</span></code></a>([nodes, time, account, …])</p></td>
+<td><p>Specify run parameters for a Slurm batch job</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#smartsim.settings.AprunSettings" title="smartsim.settings.AprunSettings"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AprunSettings</span></code></a>(exe[, exe_args, run_args, …])</p></td>
+<td><p>Settings to run job with <code class="docutils literal notranslate"><span class="pre">aprun</span></code> command</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#smartsim.settings.QsubBatchSettings" title="smartsim.settings.QsubBatchSettings"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QsubBatchSettings</span></code></a>([nodes, ncpus, time, …])</p></td>
+<td><p>Specify <code class="docutils literal notranslate"><span class="pre">qsub</span></code> batch parameters for a job</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#smartsim.settings.CobaltBatchSettings" title="smartsim.settings.CobaltBatchSettings"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CobaltBatchSettings</span></code></a>([nodes, time, queue, …])</p></td>
+<td><p>Specify settings for a Cobalt <code class="docutils literal notranslate"><span class="pre">qsub</span></code> batch launch</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#smartsim.settings.MpirunSettings" title="smartsim.settings.MpirunSettings"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MpirunSettings</span></code></a>(exe[, exe_args, run_args, …])</p></td>
+<td><p>Settings to run job with <code class="docutils literal notranslate"><span class="pre">mpirun</span></code> command (OpenMPI)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="local">
+<h3>Local<a class="headerlink" href="#local" title="Permalink to this headline">¶</a></h3>
+<p id="rs-api">When running SmartSim on laptops and single node workstations,
+the base <code class="docutils literal notranslate"><span class="pre">RunSettings</span></code> object is used to parameterize jobs.
+<code class="docutils literal notranslate"><span class="pre">RunSettings</span></code> include a <code class="docutils literal notranslate"><span class="pre">run_command</span></code> parameter for local
+launches that utilize a parallel launch binary like
+<code class="docutils literal notranslate"><span class="pre">mpirun</span></code>, <code class="docutils literal notranslate"><span class="pre">mpiexec</span></code>, and others.</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#smartsim.settings.RunSettings.add_exe_args" title="smartsim.settings.RunSettings.add_exe_args"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RunSettings.add_exe_args</span></code></a>(args)</p></td>
+<td><p>Add executable arguments to executable</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#smartsim.settings.RunSettings.update_env" title="smartsim.settings.RunSettings.update_env"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RunSettings.update_env</span></code></a>(env_vars)</p></td>
+<td><p>Update the job environment variables</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="smartsim.settings.RunSettings">
+<em class="property">class </em><code class="sig-name descname">RunSettings</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">exe</span></em>, <em class="sig-param"><span class="n">exe_args</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">run_command</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">run_args</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">env_vars</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/settings.html#RunSettings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.RunSettings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run parameters for a <code class="docutils literal notranslate"><span class="pre">Model</span></code></p>
+<p>The base <code class="docutils literal notranslate"><span class="pre">RunSettings</span></code> class should only be used with the <cite>local</cite>
+launcher on single node, workstations, or laptops.</p>
+<p>If no <code class="docutils literal notranslate"><span class="pre">run_command</span></code> is specified, the executable will be launched
+locally.</p>
+<p><code class="docutils literal notranslate"><span class="pre">run_args</span></code> passed as a dict will be interpreted literally for
+local <code class="docutils literal notranslate"><span class="pre">RunSettings</span></code> and added directly to the <code class="docutils literal notranslate"><span class="pre">run_command</span></code>
+e.g. run_args = {“-np”: 2} will be “-np 2”</p>
+<p>Example initialization</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rs</span> <span class="o">=</span> <span class="n">RunSettings</span><span class="p">(</span><span class="s2">&quot;echo&quot;</span><span class="p">,</span> <span class="s2">&quot;hello&quot;</span><span class="p">,</span> <span class="s2">&quot;mpirun&quot;</span><span class="p">,</span> <span class="n">run_args</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;-np&quot;</span><span class="p">:</span> <span class="s2">&quot;2&quot;</span><span class="p">})</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>exe</strong> (<em>str</em>) – executable to run</p></li>
+<li><p><strong>exe_args</strong> (<em>str | list</em><em>[</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – executable arguments</p></li>
+<li><p><strong>run_command</strong> (<em>str</em><em>, </em><em>optional</em>) – launch binary e.g. srun</p></li>
+<li><p><strong>run_args</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>, </em><em>optional</em>) – arguments for run command (e.g. <cite>-np</cite> for <cite>mpiexec</cite>)</p></li>
+<li><p><strong>env_vars</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>, </em><em>optional</em>) – environment vars to launch job with</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="smartsim.settings.RunSettings.add_exe_args">
+<code class="sig-name descname">add_exe_args</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">args</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/settings.html#RunSettings.add_exe_args"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.RunSettings.add_exe_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add executable arguments to executable</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>args</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – executable arguments</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>TypeError</strong> – if exe args are not strings</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.RunSettings.format_run_args">
+<code class="sig-name descname">format_run_args</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/settings.html#RunSettings.format_run_args"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.RunSettings.format_run_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return formatted run arguments</p>
+<p>For <code class="docutils literal notranslate"><span class="pre">RunSettings</span></code>, the run arguments are passed
+literally with no formatting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list run arguments for these settings</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.RunSettings.run_command">
+<em class="property">property </em><code class="sig-name descname">run_command</code><a class="headerlink" href="#smartsim.settings.RunSettings.run_command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the launch binary used to launch the executable</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>launch binary e.g. mpiexec</p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.RunSettings.update_env">
+<code class="sig-name descname">update_env</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">env_vars</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/settings.html#RunSettings.update_env"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.RunSettings.update_env" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the job environment variables</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>env_vars</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em>) – environment variables to update or add</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<hr class="docutils" />
+<div class="section" id="srunsettings">
+<h3>SrunSettings<a class="headerlink" href="#srunsettings" title="Permalink to this headline">¶</a></h3>
+<p id="srun-api"><code class="docutils literal notranslate"><span class="pre">SrunSettings</span></code> can be used for running on existing allocations,
+running jobs in interactive allocations, and for adding srun
+steps to a batch.</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#smartsim.settings.SrunSettings.set_cpus_per_task" title="smartsim.settings.SrunSettings.set_cpus_per_task"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SrunSettings.set_cpus_per_task</span></code></a>(num_cpus)</p></td>
+<td><p>Set the number of cpus to use per task</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#smartsim.settings.SrunSettings.set_hostlist" title="smartsim.settings.SrunSettings.set_hostlist"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SrunSettings.set_hostlist</span></code></a>(host_list)</p></td>
+<td><p>Specify the hostlist for this job</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#smartsim.settings.SrunSettings.set_nodes" title="smartsim.settings.SrunSettings.set_nodes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SrunSettings.set_nodes</span></code></a>(num_nodes)</p></td>
+<td><p>Set the number of nodes</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#smartsim.settings.SrunSettings.set_tasks" title="smartsim.settings.SrunSettings.set_tasks"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SrunSettings.set_tasks</span></code></a>(num_tasks)</p></td>
+<td><p>Set the number of tasks for this job</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#smartsim.settings.SrunSettings.set_tasks_per_node" title="smartsim.settings.SrunSettings.set_tasks_per_node"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SrunSettings.set_tasks_per_node</span></code></a>(num_tpn)</p></td>
+<td><p>Set the number of tasks for this job</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#smartsim.settings.SrunSettings.add_exe_args" title="smartsim.settings.SrunSettings.add_exe_args"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SrunSettings.add_exe_args</span></code></a>(args)</p></td>
+<td><p>Add executable arguments to executable</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#smartsim.settings.SrunSettings.format_run_args" title="smartsim.settings.SrunSettings.format_run_args"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SrunSettings.format_run_args</span></code></a>()</p></td>
+<td><p>return a list of slurm formatted run arguments</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#smartsim.settings.SrunSettings.format_env_vars" title="smartsim.settings.SrunSettings.format_env_vars"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SrunSettings.format_env_vars</span></code></a>()</p></td>
+<td><p>Build environment variable string for Slurm</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#smartsim.settings.SrunSettings.update_env" title="smartsim.settings.SrunSettings.update_env"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SrunSettings.update_env</span></code></a>(env_vars)</p></td>
+<td><p>Update the job environment variables</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="smartsim.settings.SrunSettings">
+<em class="property">class </em><code class="sig-name descname">SrunSettings</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">exe</span></em>, <em class="sig-param"><span class="n">exe_args</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">run_args</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">env_vars</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">alloc</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/slurmSettings.html#SrunSettings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.SrunSettings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize run parameters for a slurm job with <code class="docutils literal notranslate"><span class="pre">srun</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">SrunSettings</span></code> should only be used on Slurm based systems.</p>
+<p>If an allocation is specified, the instance receiving these run
+parameters will launch on that allocation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>exe</strong> (<em>str</em>) – executable</p></li>
+<li><p><strong>exe_args</strong> (<em>list</em><em>[</em><em>str</em><em>] </em><em>| str</em><em>, </em><em>optional</em>) – executable arguments</p></li>
+<li><p><strong>run_args</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>str | None</em><em>]</em><em>, </em><em>optional</em>) – srun arguments without dashes</p></li>
+<li><p><strong>env_vars</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>, </em><em>optional</em>) – environment variables for job</p></li>
+<li><p><strong>alloc</strong> (<em>str</em><em>, </em><em>optional</em>) – allocation ID if running on existing alloc</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="smartsim.settings.SrunSettings.add_exe_args">
+<code class="sig-name descname">add_exe_args</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#smartsim.settings.SrunSettings.add_exe_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add executable arguments to executable</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>args</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – executable arguments</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>TypeError</strong> – if exe args are not strings</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.SrunSettings.format_env_vars">
+<code class="sig-name descname">format_env_vars</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/slurmSettings.html#SrunSettings.format_env_vars"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.SrunSettings.format_env_vars" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build environment variable string for Slurm</p>
+<p>Slurm takes exports in comma seperated lists
+the list starts with all as to not disturb the rest of the environment
+for more information on this, see the slurm documentation for srun</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the formatted string of environment variables</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.SrunSettings.format_run_args">
+<code class="sig-name descname">format_run_args</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/slurmSettings.html#SrunSettings.format_run_args"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.SrunSettings.format_run_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a list of slurm formatted run arguments</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list slurm arguments for these settings</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.SrunSettings.run_command">
+<em class="property">property </em><code class="sig-name descname">run_command</code><a class="headerlink" href="#smartsim.settings.SrunSettings.run_command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the launch binary used to launch the executable</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>launch binary e.g. mpiexec</p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.SrunSettings.set_cpus_per_task">
+<code class="sig-name descname">set_cpus_per_task</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">num_cpus</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/slurmSettings.html#SrunSettings.set_cpus_per_task"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.SrunSettings.set_cpus_per_task" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the number of cpus to use per task</p>
+<p>This sets <code class="docutils literal notranslate"><span class="pre">--cpus-per-task</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>num_cpus</strong> (<em>int</em>) – number of cpus to use per task</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.SrunSettings.set_hostlist">
+<code class="sig-name descname">set_hostlist</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">host_list</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/slurmSettings.html#SrunSettings.set_hostlist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.SrunSettings.set_hostlist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify the hostlist for this job</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>host_list</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – hosts to launch on</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>TypeError</strong> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.SrunSettings.set_nodes">
+<code class="sig-name descname">set_nodes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">num_nodes</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/slurmSettings.html#SrunSettings.set_nodes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.SrunSettings.set_nodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the number of nodes</p>
+<p>Effectively this is setting: <code class="docutils literal notranslate"><span class="pre">srun</span> <span class="pre">--nodes</span> <span class="pre">&lt;num_nodes&gt;</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>num_nodes</strong> (<em>int</em>) – number of nodes to run with</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.SrunSettings.set_tasks">
+<code class="sig-name descname">set_tasks</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">num_tasks</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/slurmSettings.html#SrunSettings.set_tasks"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.SrunSettings.set_tasks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the number of tasks for this job</p>
+<p>This sets <code class="docutils literal notranslate"><span class="pre">--ntasks</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>num_tasks</strong> (<em>int</em>) – number of tasks</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.SrunSettings.set_tasks_per_node">
+<code class="sig-name descname">set_tasks_per_node</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">num_tpn</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/slurmSettings.html#SrunSettings.set_tasks_per_node"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.SrunSettings.set_tasks_per_node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the number of tasks for this job</p>
+<p>This sets <code class="docutils literal notranslate"><span class="pre">--ntasks-per-node</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>num_tpn</strong> (<em>int</em>) – number of tasks per node</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.SrunSettings.update_env">
+<code class="sig-name descname">update_env</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">env_vars</span></em><span class="sig-paren">)</span><a class="headerlink" href="#smartsim.settings.SrunSettings.update_env" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the job environment variables</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>env_vars</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em>) – environment variables to update or add</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="sbatchsettings">
+<h3>SbatchSettings<a class="headerlink" href="#sbatchsettings" title="Permalink to this headline">¶</a></h3>
+<p id="sbatch-api"><code class="docutils literal notranslate"><span class="pre">SbatchSettings</span></code> are used for launching batches onto Slurm
+WLM systems.</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#smartsim.settings.SbatchSettings.set_account" title="smartsim.settings.SbatchSettings.set_account"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SbatchSettings.set_account</span></code></a>(acct)</p></td>
+<td><p>Set the account for this batch job</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#smartsim.settings.SbatchSettings.set_batch_command" title="smartsim.settings.SbatchSettings.set_batch_command"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SbatchSettings.set_batch_command</span></code></a>(command)</p></td>
+<td><p>Set the command used to launch the batch e.g.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#smartsim.settings.SbatchSettings.set_nodes" title="smartsim.settings.SbatchSettings.set_nodes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SbatchSettings.set_nodes</span></code></a>(num_nodes)</p></td>
+<td><p>Set the number of nodes for this batch job</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#smartsim.settings.SbatchSettings.set_hostlist" title="smartsim.settings.SbatchSettings.set_hostlist"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SbatchSettings.set_hostlist</span></code></a>(host_list)</p></td>
+<td><p>Specify the hostlist for this job</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#smartsim.settings.SbatchSettings.set_partition" title="smartsim.settings.SbatchSettings.set_partition"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SbatchSettings.set_partition</span></code></a>(partition)</p></td>
+<td><p>Set the partition for the batch job</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#smartsim.settings.SbatchSettings.set_walltime" title="smartsim.settings.SbatchSettings.set_walltime"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SbatchSettings.set_walltime</span></code></a>(walltime)</p></td>
+<td><p>Set the walltime of the job</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#smartsim.settings.SbatchSettings.format_batch_args" title="smartsim.settings.SbatchSettings.format_batch_args"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SbatchSettings.format_batch_args</span></code></a>()</p></td>
+<td><p>Get the formatted batch arguments for a preview</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="smartsim.settings.SbatchSettings">
+<em class="property">class </em><code class="sig-name descname">SbatchSettings</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">nodes</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">time</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">account</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">batch_args</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/slurmSettings.html#SbatchSettings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.SbatchSettings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify run parameters for a Slurm batch job</p>
+<p>Slurm <cite>sbatch</cite> arguments can be written into <code class="docutils literal notranslate"><span class="pre">batch_args</span></code>
+as a dictionary. e.g. {‘ntasks’: 1}</p>
+<p>If the argument doesn’t have a parameter, put <cite>None</cite>
+as the value. e.g. {‘exclusive’: None}</p>
+<p>Initialization values provided (nodes, time, account)
+will overwrite the same arguments in <code class="docutils literal notranslate"><span class="pre">batch_args</span></code> if present</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nodes</strong> (<em>int</em><em>, </em><em>optional</em>) – number of nodes</p></li>
+<li><p><strong>time</strong> (<em>str</em><em>, </em><em>optional</em>) – walltime for job, e.g. “10:00:00” for 10 hours</p></li>
+<li><p><strong>account</strong> (<em>str</em><em>, </em><em>optional</em>) – account for job</p></li>
+<li><p><strong>batch_args</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>, </em><em>optional</em>) – extra batch arguments</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="smartsim.settings.SbatchSettings.batch_cmd">
+<em class="property">property </em><code class="sig-name descname">batch_cmd</code><a class="headerlink" href="#smartsim.settings.SbatchSettings.batch_cmd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the batch command</p>
+<p>Tests to see if we can expand the batch command
+path, and if not, returns the batch command as is</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>batch command</p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.SbatchSettings.format_batch_args">
+<code class="sig-name descname">format_batch_args</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/slurmSettings.html#SbatchSettings.format_batch_args"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.SbatchSettings.format_batch_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the formatted batch arguments for a preview</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>batch arguments for Sbatch</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.SbatchSettings.set_account">
+<code class="sig-name descname">set_account</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">acct</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/slurmSettings.html#SbatchSettings.set_account"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.SbatchSettings.set_account" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the account for this batch job</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>acct</strong> (<em>str</em>) – account id</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.SbatchSettings.set_batch_command">
+<code class="sig-name descname">set_batch_command</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">command</span></em><span class="sig-paren">)</span><a class="headerlink" href="#smartsim.settings.SbatchSettings.set_batch_command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the command used to launch the batch e.g. <code class="docutils literal notranslate"><span class="pre">sbatch</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>command</strong> (<em>str</em>) – batch command</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.SbatchSettings.set_hostlist">
+<code class="sig-name descname">set_hostlist</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">host_list</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/slurmSettings.html#SbatchSettings.set_hostlist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.SbatchSettings.set_hostlist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify the hostlist for this job</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>host_list</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – hosts to launch on</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>TypeError</strong> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.SbatchSettings.set_nodes">
+<code class="sig-name descname">set_nodes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">num_nodes</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/slurmSettings.html#SbatchSettings.set_nodes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.SbatchSettings.set_nodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the number of nodes for this batch job</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>num_nodes</strong> (<em>int</em>) – number of nodes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.SbatchSettings.set_partition">
+<code class="sig-name descname">set_partition</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">partition</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/slurmSettings.html#SbatchSettings.set_partition"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.SbatchSettings.set_partition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the partition for the batch job</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>partition</strong> (<em>str</em>) – partition name</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.SbatchSettings.set_walltime">
+<code class="sig-name descname">set_walltime</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">walltime</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/slurmSettings.html#SbatchSettings.set_walltime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.SbatchSettings.set_walltime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the walltime of the job</p>
+<p>format = “HH:MM:SS”</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>walltime</strong> (<em>str</em>) – wall time</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<hr class="docutils" />
+<div class="section" id="aprunsettings">
+<h3>AprunSettings<a class="headerlink" href="#aprunsettings" title="Permalink to this headline">¶</a></h3>
+<p id="aprun-api"><code class="docutils literal notranslate"><span class="pre">AprunSettings</span></code> can be used on any system that suppports the
+Cray ALPS layer. SmartSim supports using <code class="docutils literal notranslate"><span class="pre">AprunSettings</span></code>
+on PBSPro and Cobalt WLM systems.</p>
+<p><code class="docutils literal notranslate"><span class="pre">AprunSettings</span></code> can be used in interactive session (on allocation)
+and within batch launches (e.g. <code class="docutils literal notranslate"><span class="pre">QsubBatchSettings</span></code>)</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#smartsim.settings.AprunSettings.set_cpus_per_task" title="smartsim.settings.AprunSettings.set_cpus_per_task"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AprunSettings.set_cpus_per_task</span></code></a>(num_cpus)</p></td>
+<td><p>Set the number of cpus to use per task</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#smartsim.settings.AprunSettings.set_hostlist" title="smartsim.settings.AprunSettings.set_hostlist"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AprunSettings.set_hostlist</span></code></a>(host_list)</p></td>
+<td><p>Specify the hostlist for this job</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#smartsim.settings.AprunSettings.set_tasks" title="smartsim.settings.AprunSettings.set_tasks"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AprunSettings.set_tasks</span></code></a>(num_tasks)</p></td>
+<td><p>Set the number of tasks for this job</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#smartsim.settings.AprunSettings.set_tasks_per_node" title="smartsim.settings.AprunSettings.set_tasks_per_node"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AprunSettings.set_tasks_per_node</span></code></a>(num_tpn)</p></td>
+<td><p>Set the number of tasks for this job</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#smartsim.settings.AprunSettings.make_mpmd" title="smartsim.settings.AprunSettings.make_mpmd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AprunSettings.make_mpmd</span></code></a>(aprun_settings)</p></td>
+<td><p>Make job a MPMD job</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#smartsim.settings.AprunSettings.add_exe_args" title="smartsim.settings.AprunSettings.add_exe_args"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AprunSettings.add_exe_args</span></code></a>(args)</p></td>
+<td><p>Add executable arguments to executable</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#smartsim.settings.AprunSettings.format_run_args" title="smartsim.settings.AprunSettings.format_run_args"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AprunSettings.format_run_args</span></code></a>()</p></td>
+<td><p>Return a list of ALPS formatted run arguments</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#smartsim.settings.AprunSettings.format_env_vars" title="smartsim.settings.AprunSettings.format_env_vars"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AprunSettings.format_env_vars</span></code></a>()</p></td>
+<td><p>Format the environment variables for aprun</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#smartsim.settings.AprunSettings.update_env" title="smartsim.settings.AprunSettings.update_env"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AprunSettings.update_env</span></code></a>(env_vars)</p></td>
+<td><p>Update the job environment variables</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="smartsim.settings.AprunSettings">
+<em class="property">class </em><code class="sig-name descname">AprunSettings</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">exe</span></em>, <em class="sig-param"><span class="n">exe_args</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">run_args</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">env_vars</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/alpsSettings.html#AprunSettings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.AprunSettings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Settings to run job with <code class="docutils literal notranslate"><span class="pre">aprun</span></code> command</p>
+<p><code class="docutils literal notranslate"><span class="pre">AprunSettings</span></code> can be used for both the <cite>pbs</cite> and <cite>cobalt</cite>
+launchers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>exe</strong> (<em>str</em>) – executable</p></li>
+<li><p><strong>exe_args</strong> (<em>str | list</em><em>[</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – executable arguments, defaults to None</p></li>
+<li><p><strong>run_args</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>, </em><em>optional</em>) – arguments for run command, defaults to None</p></li>
+<li><p><strong>env_vars</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>, </em><em>optional</em>) – environment vars to launch job with, defaults to None</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="smartsim.settings.AprunSettings.add_exe_args">
+<code class="sig-name descname">add_exe_args</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#smartsim.settings.AprunSettings.add_exe_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add executable arguments to executable</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>args</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – executable arguments</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>TypeError</strong> – if exe args are not strings</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.AprunSettings.format_env_vars">
+<code class="sig-name descname">format_env_vars</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/alpsSettings.html#AprunSettings.format_env_vars"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.AprunSettings.format_env_vars" title="Permalink to this definition">¶</a></dt>
+<dd><p>Format the environment variables for aprun</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list of env vars</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.AprunSettings.format_run_args">
+<code class="sig-name descname">format_run_args</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/alpsSettings.html#AprunSettings.format_run_args"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.AprunSettings.format_run_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of ALPS formatted run arguments</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list ALPS arguments for these settings</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.AprunSettings.make_mpmd">
+<code class="sig-name descname">make_mpmd</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">aprun_settings</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/alpsSettings.html#AprunSettings.make_mpmd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.AprunSettings.make_mpmd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make job a MPMD job</p>
+<p>This method combines two <code class="docutils literal notranslate"><span class="pre">AprunSettings</span></code>
+into a single MPMD command joined with ‘:’</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>aprun_settings</strong> (<a class="reference internal" href="#smartsim.settings.AprunSettings" title="smartsim.settings.AprunSettings"><em>AprunSettings</em></a>) – <code class="docutils literal notranslate"><span class="pre">AprunSettings</span></code> instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.AprunSettings.run_command">
+<em class="property">property </em><code class="sig-name descname">run_command</code><a class="headerlink" href="#smartsim.settings.AprunSettings.run_command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the launch binary used to launch the executable</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>launch binary e.g. mpiexec</p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.AprunSettings.set_cpus_per_task">
+<code class="sig-name descname">set_cpus_per_task</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">num_cpus</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/alpsSettings.html#AprunSettings.set_cpus_per_task"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.AprunSettings.set_cpus_per_task" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the number of cpus to use per task</p>
+<p>This sets <code class="docutils literal notranslate"><span class="pre">--cpus-per-pe</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>num_cpus</strong> (<em>int</em>) – number of cpus to use per task</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.AprunSettings.set_hostlist">
+<code class="sig-name descname">set_hostlist</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">host_list</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/alpsSettings.html#AprunSettings.set_hostlist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.AprunSettings.set_hostlist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify the hostlist for this job</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>host_list</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – hosts to launch on</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>TypeError</strong> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.AprunSettings.set_tasks">
+<code class="sig-name descname">set_tasks</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">num_tasks</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/alpsSettings.html#AprunSettings.set_tasks"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.AprunSettings.set_tasks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the number of tasks for this job</p>
+<p>This sets <code class="docutils literal notranslate"><span class="pre">--pes</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>num_tasks</strong> (<em>int</em>) – number of tasks</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.AprunSettings.set_tasks_per_node">
+<code class="sig-name descname">set_tasks_per_node</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">num_tpn</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/alpsSettings.html#AprunSettings.set_tasks_per_node"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.AprunSettings.set_tasks_per_node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the number of tasks for this job</p>
+<p>This sets <code class="docutils literal notranslate"><span class="pre">--pes-per-node</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>num_tpn</strong> (<em>int</em>) – number of tasks per node</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.AprunSettings.update_env">
+<code class="sig-name descname">update_env</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">env_vars</span></em><span class="sig-paren">)</span><a class="headerlink" href="#smartsim.settings.AprunSettings.update_env" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the job environment variables</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>env_vars</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em>) – environment variables to update or add</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="qsubbatchsettings">
+<h3>QsubBatchSettings<a class="headerlink" href="#qsubbatchsettings" title="Permalink to this headline">¶</a></h3>
+<p id="qsub-api"><code class="docutils literal notranslate"><span class="pre">QsubBatchSettings</span></code> are used to configure jobs that should
+be launched as a batch on PBSPro systems.</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#smartsim.settings.QsubBatchSettings.set_account" title="smartsim.settings.QsubBatchSettings.set_account"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QsubBatchSettings.set_account</span></code></a>(acct)</p></td>
+<td><p>Set the account for this batch job</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#smartsim.settings.QsubBatchSettings.set_batch_command" title="smartsim.settings.QsubBatchSettings.set_batch_command"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QsubBatchSettings.set_batch_command</span></code></a>(command)</p></td>
+<td><p>Set the command used to launch the batch e.g.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#smartsim.settings.QsubBatchSettings.set_nodes" title="smartsim.settings.QsubBatchSettings.set_nodes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QsubBatchSettings.set_nodes</span></code></a>(num_nodes)</p></td>
+<td><p>Set the number of nodes for this batch job</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#smartsim.settings.QsubBatchSettings.set_ncpus" title="smartsim.settings.QsubBatchSettings.set_ncpus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QsubBatchSettings.set_ncpus</span></code></a>(num_cpus)</p></td>
+<td><p>Set the number of cpus obtained in each node.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#smartsim.settings.QsubBatchSettings.set_queue" title="smartsim.settings.QsubBatchSettings.set_queue"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QsubBatchSettings.set_queue</span></code></a>(queue)</p></td>
+<td><p>Set the queue for the batch job</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#smartsim.settings.QsubBatchSettings.set_resource" title="smartsim.settings.QsubBatchSettings.set_resource"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QsubBatchSettings.set_resource</span></code></a>(…)</p></td>
+<td><p>Set a resource value for the Qsub batch</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#smartsim.settings.QsubBatchSettings.set_walltime" title="smartsim.settings.QsubBatchSettings.set_walltime"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QsubBatchSettings.set_walltime</span></code></a>(walltime)</p></td>
+<td><p>Set the walltime of the job</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#smartsim.settings.QsubBatchSettings.format_batch_args" title="smartsim.settings.QsubBatchSettings.format_batch_args"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QsubBatchSettings.format_batch_args</span></code></a>()</p></td>
+<td><p>Get the formatted batch arguments for a preview</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="smartsim.settings.QsubBatchSettings">
+<em class="property">class </em><code class="sig-name descname">QsubBatchSettings</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">nodes</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ncpus</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">time</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">queue</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">account</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">resources</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">batch_args</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/pbsSettings.html#QsubBatchSettings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.QsubBatchSettings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify <code class="docutils literal notranslate"><span class="pre">qsub</span></code> batch parameters for a job</p>
+<p><code class="docutils literal notranslate"><span class="pre">nodes</span></code>, and <code class="docutils literal notranslate"><span class="pre">ncpus</span></code> are used to create the
+select statement for PBS if a select statement is not
+included in the <code class="docutils literal notranslate"><span class="pre">resources</span></code>. If both are supplied
+the value for select statement supplied in <code class="docutils literal notranslate"><span class="pre">resources</span></code>
+will override.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nodes</strong> (<em>int</em><em>, </em><em>optional</em>) – number of nodes for batch</p></li>
+<li><p><strong>ncpus</strong> (<em>int</em><em>, </em><em>optional</em>) – number of cpus per node</p></li>
+<li><p><strong>time</strong> (<em>str</em><em>, </em><em>optional</em>) – walltime for batch job</p></li>
+<li><p><strong>queue</strong> (<em>str</em>) – queue to run batch in</p></li>
+<li><p><strong>account</strong> (<em>str</em><em>, </em><em>optional</em>) – account for batch launch</p></li>
+<li><p><strong>resources</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>, </em><em>optional</em>) – overrides for resource arguments</p></li>
+<li><p><strong>batch_args</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>, </em><em>optional</em>) – overrides for PBS batch arguments</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="smartsim.settings.QsubBatchSettings.batch_cmd">
+<em class="property">property </em><code class="sig-name descname">batch_cmd</code><a class="headerlink" href="#smartsim.settings.QsubBatchSettings.batch_cmd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the batch command</p>
+<p>Tests to see if we can expand the batch command
+path, and if not, returns the batch command as is</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>batch command</p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.QsubBatchSettings.format_batch_args">
+<code class="sig-name descname">format_batch_args</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/pbsSettings.html#QsubBatchSettings.format_batch_args"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.QsubBatchSettings.format_batch_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the formatted batch arguments for a preview</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>batch arguments for Qsub</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.QsubBatchSettings.set_account">
+<code class="sig-name descname">set_account</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">acct</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/pbsSettings.html#QsubBatchSettings.set_account"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.QsubBatchSettings.set_account" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the account for this batch job</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>acct</strong> (<em>str</em>) – account id</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.QsubBatchSettings.set_batch_command">
+<code class="sig-name descname">set_batch_command</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">command</span></em><span class="sig-paren">)</span><a class="headerlink" href="#smartsim.settings.QsubBatchSettings.set_batch_command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the command used to launch the batch e.g. <code class="docutils literal notranslate"><span class="pre">sbatch</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>command</strong> (<em>str</em>) – batch command</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.QsubBatchSettings.set_hostlist">
+<code class="sig-name descname">set_hostlist</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">host_list</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/pbsSettings.html#QsubBatchSettings.set_hostlist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.QsubBatchSettings.set_hostlist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify the hostlist for this job</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>host_list</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – hosts to launch on</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>TypeError</strong> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.QsubBatchSettings.set_ncpus">
+<code class="sig-name descname">set_ncpus</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">num_cpus</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/pbsSettings.html#QsubBatchSettings.set_ncpus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.QsubBatchSettings.set_ncpus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the number of cpus obtained in each node.</p>
+<p>If a select argument is provided in
+<code class="docutils literal notranslate"><span class="pre">QsubBatchSettings.resources</span></code> then,
+this value will be overridden</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>num_cpus</strong> (<em>int</em>) – number of cpus per node in select</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.QsubBatchSettings.set_nodes">
+<code class="sig-name descname">set_nodes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">num_nodes</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/pbsSettings.html#QsubBatchSettings.set_nodes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.QsubBatchSettings.set_nodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the number of nodes for this batch job</p>
+<p>If a select argument is provided in <code class="docutils literal notranslate"><span class="pre">QsubBatchSettings.resources</span></code>
+this value will be overridden</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>num_nodes</strong> (<em>int</em>) – number of nodes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.QsubBatchSettings.set_queue">
+<code class="sig-name descname">set_queue</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">queue</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/pbsSettings.html#QsubBatchSettings.set_queue"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.QsubBatchSettings.set_queue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the queue for the batch job</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>queue</strong> (<em>str</em>) – queue name</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.QsubBatchSettings.set_resource">
+<code class="sig-name descname">set_resource</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">resource_name</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/pbsSettings.html#QsubBatchSettings.set_resource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.QsubBatchSettings.set_resource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set a resource value for the Qsub batch</p>
+<p>If a select statement is provided, the nodes and ncpus
+arguments will be overridden. Likewise for Walltime</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>resource_name</strong> (<em>str</em>) – name of resource, e.g. walltime</p></li>
+<li><p><strong>value</strong> (<em>str</em>) – value</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.QsubBatchSettings.set_walltime">
+<code class="sig-name descname">set_walltime</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">walltime</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/pbsSettings.html#QsubBatchSettings.set_walltime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.QsubBatchSettings.set_walltime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the walltime of the job</p>
+<p>format = “HH:MM:SS”</p>
+<p>If a walltime argument is provided in
+<code class="docutils literal notranslate"><span class="pre">QsubBatchSettings.resources</span></code>, then
+this value will be overridden</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>walltime</strong> (<em>str</em>) – wall time</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<hr class="docutils" />
+<div class="section" id="cobaltbatchsettings">
+<h3>CobaltBatchSettings<a class="headerlink" href="#cobaltbatchsettings" title="Permalink to this headline">¶</a></h3>
+<p id="cqsub-api"><code class="docutils literal notranslate"><span class="pre">CobaltBatchSettings</span></code> are used to configure jobs that should
+be launched as a batch on Cobalt Systems. They closely mimic
+that of the <code class="docutils literal notranslate"><span class="pre">QsubBatchSettings</span></code> for PBSPro.</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#smartsim.settings.CobaltBatchSettings.set_account" title="smartsim.settings.CobaltBatchSettings.set_account"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CobaltBatchSettings.set_account</span></code></a>(acct)</p></td>
+<td><p>Set the account for this batch job</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#smartsim.settings.CobaltBatchSettings.set_batch_command" title="smartsim.settings.CobaltBatchSettings.set_batch_command"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CobaltBatchSettings.set_batch_command</span></code></a>(command)</p></td>
+<td><p>Set the command used to launch the batch e.g.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#smartsim.settings.CobaltBatchSettings.set_nodes" title="smartsim.settings.CobaltBatchSettings.set_nodes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CobaltBatchSettings.set_nodes</span></code></a>(num_nodes)</p></td>
+<td><p>Set the number of nodes for this batch job</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#smartsim.settings.CobaltBatchSettings.set_queue" title="smartsim.settings.CobaltBatchSettings.set_queue"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CobaltBatchSettings.set_queue</span></code></a>(queue)</p></td>
+<td><p>Set the queue for the batch job</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#smartsim.settings.CobaltBatchSettings.set_walltime" title="smartsim.settings.CobaltBatchSettings.set_walltime"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CobaltBatchSettings.set_walltime</span></code></a>(walltime)</p></td>
+<td><p>Set the walltime of the job</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#smartsim.settings.CobaltBatchSettings.format_batch_args" title="smartsim.settings.CobaltBatchSettings.format_batch_args"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CobaltBatchSettings.format_batch_args</span></code></a>()</p></td>
+<td><p>Get the formatted batch arguments for a preview</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="smartsim.settings.CobaltBatchSettings">
+<em class="property">class </em><code class="sig-name descname">CobaltBatchSettings</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">nodes</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">time</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">queue</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">account</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">batch_args</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/cobaltSettings.html#CobaltBatchSettings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.CobaltBatchSettings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify settings for a Cobalt <code class="docutils literal notranslate"><span class="pre">qsub</span></code> batch launch</p>
+<p>If the argument doesn’t have a parameter, put None
+as the value. e.g. {‘exclusive’: None}</p>
+<p>Initialization values provided (nodes, time, account)
+will overwrite the same arguments in <code class="docutils literal notranslate"><span class="pre">batch_args</span></code> if present</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nodes</strong> (<em>int</em><em>, </em><em>optional</em>) – number of nodes</p></li>
+<li><p><strong>time</strong> (<em>str</em><em>, </em><em>optional</em>) – walltime for job, e.g. “10:00:00” for 10 hours</p></li>
+<li><p><strong>queue</strong> (<em>str</em>) – queue to launch job in</p></li>
+<li><p><strong>account</strong> (<em>str</em><em>, </em><em>optional</em>) – account for job</p></li>
+<li><p><strong>batch_args</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>, </em><em>optional</em>) – extra batch arguments</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="smartsim.settings.CobaltBatchSettings.batch_cmd">
+<em class="property">property </em><code class="sig-name descname">batch_cmd</code><a class="headerlink" href="#smartsim.settings.CobaltBatchSettings.batch_cmd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the batch command</p>
+<p>Tests to see if we can expand the batch command
+path, and if not, returns the batch command as is</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>batch command</p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.CobaltBatchSettings.format_batch_args">
+<code class="sig-name descname">format_batch_args</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/cobaltSettings.html#CobaltBatchSettings.format_batch_args"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.CobaltBatchSettings.format_batch_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the formatted batch arguments for a preview</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>batch arguments for Sbatch</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.CobaltBatchSettings.set_account">
+<code class="sig-name descname">set_account</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">acct</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/cobaltSettings.html#CobaltBatchSettings.set_account"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.CobaltBatchSettings.set_account" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the account for this batch job</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>acct</strong> (<em>str</em>) – account id</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.CobaltBatchSettings.set_batch_command">
+<code class="sig-name descname">set_batch_command</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">command</span></em><span class="sig-paren">)</span><a class="headerlink" href="#smartsim.settings.CobaltBatchSettings.set_batch_command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the command used to launch the batch e.g. <code class="docutils literal notranslate"><span class="pre">sbatch</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>command</strong> (<em>str</em>) – batch command</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.CobaltBatchSettings.set_hostlist">
+<code class="sig-name descname">set_hostlist</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">host_list</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/cobaltSettings.html#CobaltBatchSettings.set_hostlist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.CobaltBatchSettings.set_hostlist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify the hostlist for this job</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>host_list</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – hosts to launch on</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>TypeError</strong> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.CobaltBatchSettings.set_nodes">
+<code class="sig-name descname">set_nodes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">num_nodes</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/cobaltSettings.html#CobaltBatchSettings.set_nodes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.CobaltBatchSettings.set_nodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the number of nodes for this batch job</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>num_nodes</strong> (<em>int</em>) – number of nodes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.CobaltBatchSettings.set_queue">
+<code class="sig-name descname">set_queue</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">queue</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/cobaltSettings.html#CobaltBatchSettings.set_queue"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.CobaltBatchSettings.set_queue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the queue for the batch job</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>queue</strong> (<em>str</em>) – queue name</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.CobaltBatchSettings.set_tasks">
+<code class="sig-name descname">set_tasks</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">num_tasks</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/cobaltSettings.html#CobaltBatchSettings.set_tasks"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.CobaltBatchSettings.set_tasks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set total number of processes to start</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>num_tasks</strong> (<em>int</em>) – number of processes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.CobaltBatchSettings.set_walltime">
+<code class="sig-name descname">set_walltime</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">walltime</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/cobaltSettings.html#CobaltBatchSettings.set_walltime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.CobaltBatchSettings.set_walltime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the walltime of the job</p>
+<p>format = “HH:MM:SS”</p>
+<p>Cobalt walltime can also be specified with number
+of minutes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>walltime</strong> (<em>str</em>) – wall time</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<hr class="docutils" />
+<p>The following are <code class="docutils literal notranslate"><span class="pre">RunSettings</span></code> types that are supported on multiple
+launchers</p>
+</div>
+<div class="section" id="mpirunsettings">
+<h3>MpirunSettings<a class="headerlink" href="#mpirunsettings" title="Permalink to this headline">¶</a></h3>
+<p id="openmpi-api"><code class="docutils literal notranslate"><span class="pre">MpirunSettings</span></code> are for launching with OpenMPI. <code class="docutils literal notranslate"><span class="pre">MpirunSettings</span></code> are
+supported on Slurm, PBSpro, and Cobalt.</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#smartsim.settings.MpirunSettings.set_cpus_per_task" title="smartsim.settings.MpirunSettings.set_cpus_per_task"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MpirunSettings.set_cpus_per_task</span></code></a>(num_cpus)</p></td>
+<td><p>Set the number of tasks for this job</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#smartsim.settings.MpirunSettings.set_hostlist" title="smartsim.settings.MpirunSettings.set_hostlist"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MpirunSettings.set_hostlist</span></code></a>(host_list)</p></td>
+<td><p>Set the hostlist for the <code class="docutils literal notranslate"><span class="pre">mpirun</span></code> command</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#smartsim.settings.MpirunSettings.set_tasks" title="smartsim.settings.MpirunSettings.set_tasks"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MpirunSettings.set_tasks</span></code></a>(num_tasks)</p></td>
+<td><p>Set the number of tasks for this job</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#smartsim.settings.MpirunSettings.set_task_map" title="smartsim.settings.MpirunSettings.set_task_map"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MpirunSettings.set_task_map</span></code></a>(task_mapping)</p></td>
+<td><p>Set <code class="docutils literal notranslate"><span class="pre">mpirun</span></code> task mapping</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#smartsim.settings.MpirunSettings.make_mpmd" title="smartsim.settings.MpirunSettings.make_mpmd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MpirunSettings.make_mpmd</span></code></a>(mpirun_settings)</p></td>
+<td><p>Make a mpmd workload by combining two <code class="docutils literal notranslate"><span class="pre">mpirun</span></code> commands</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#smartsim.settings.MpirunSettings.add_exe_args" title="smartsim.settings.MpirunSettings.add_exe_args"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MpirunSettings.add_exe_args</span></code></a>(args)</p></td>
+<td><p>Add executable arguments to executable</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#smartsim.settings.MpirunSettings.format_run_args" title="smartsim.settings.MpirunSettings.format_run_args"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MpirunSettings.format_run_args</span></code></a>()</p></td>
+<td><p>return a list of OpenMPI formatted run arguments</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#smartsim.settings.MpirunSettings.format_env_vars" title="smartsim.settings.MpirunSettings.format_env_vars"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MpirunSettings.format_env_vars</span></code></a>()</p></td>
+<td><p>Format the environment variables for mpirun</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#smartsim.settings.MpirunSettings.update_env" title="smartsim.settings.MpirunSettings.update_env"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MpirunSettings.update_env</span></code></a>(env_vars)</p></td>
+<td><p>Update the job environment variables</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="smartsim.settings.MpirunSettings">
+<em class="property">class </em><code class="sig-name descname">MpirunSettings</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">exe</span></em>, <em class="sig-param"><span class="n">exe_args</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">run_args</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">env_vars</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/mpirunSettings.html#MpirunSettings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.MpirunSettings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Settings to run job with <code class="docutils literal notranslate"><span class="pre">mpirun</span></code> command (OpenMPI)</p>
+<p>Note that environment variables can be passed with a None
+value to signify that they should be exported from the current
+environment</p>
+<p>Any arguments passed in the <code class="docutils literal notranslate"><span class="pre">run_args</span></code> dict will be converted
+into <code class="docutils literal notranslate"><span class="pre">mpirun</span></code> arguments and prefixed with <code class="docutils literal notranslate"><span class="pre">--</span></code>. Values of
+None can be provided for arguments that do not have values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>exe</strong> (<em>str</em>) – executable</p></li>
+<li><p><strong>exe_args</strong> (<em>str | list</em><em>[</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – executable arguments, defaults to None</p></li>
+<li><p><strong>run_args</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>, </em><em>optional</em>) – arguments for run command, defaults to None</p></li>
+<li><p><strong>env_vars</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em><em>, </em><em>optional</em>) – environment vars to launch job with, defaults to None</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="smartsim.settings.MpirunSettings.add_exe_args">
+<code class="sig-name descname">add_exe_args</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#smartsim.settings.MpirunSettings.add_exe_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add executable arguments to executable</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>args</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – executable arguments</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>TypeError</strong> – if exe args are not strings</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.MpirunSettings.format_env_vars">
+<code class="sig-name descname">format_env_vars</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/mpirunSettings.html#MpirunSettings.format_env_vars"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.MpirunSettings.format_env_vars" title="Permalink to this definition">¶</a></dt>
+<dd><p>Format the environment variables for mpirun</p>
+<p>Automatically exports <code class="docutils literal notranslate"><span class="pre">PYTHONPATH</span></code>, <code class="docutils literal notranslate"><span class="pre">LD_LIBRARY_PATH</span></code>
+and <code class="docutils literal notranslate"><span class="pre">PATH</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list of env vars</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.MpirunSettings.format_run_args">
+<code class="sig-name descname">format_run_args</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/mpirunSettings.html#MpirunSettings.format_run_args"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.MpirunSettings.format_run_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a list of OpenMPI formatted run arguments</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list OpenMPI arguments for these settings</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.MpirunSettings.make_mpmd">
+<code class="sig-name descname">make_mpmd</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mpirun_settings</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/mpirunSettings.html#MpirunSettings.make_mpmd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.MpirunSettings.make_mpmd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make a mpmd workload by combining two <code class="docutils literal notranslate"><span class="pre">mpirun</span></code> commands</p>
+<p>This connectes the two settings to be executed with a single
+Model instance</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>mpirun_settings</strong> (<a class="reference internal" href="#smartsim.settings.MpirunSettings" title="smartsim.settings.MpirunSettings"><em>MpirunSettings</em></a>) – MpirunSettings instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.MpirunSettings.run_command">
+<em class="property">property </em><code class="sig-name descname">run_command</code><a class="headerlink" href="#smartsim.settings.MpirunSettings.run_command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the launch binary used to launch the executable</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>launch binary e.g. mpiexec</p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.MpirunSettings.set_cpus_per_task">
+<code class="sig-name descname">set_cpus_per_task</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">num_cpus</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/mpirunSettings.html#MpirunSettings.set_cpus_per_task"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.MpirunSettings.set_cpus_per_task" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the number of tasks for this job</p>
+<p>This sets <code class="docutils literal notranslate"><span class="pre">--cpus-per-proc</span></code></p>
+<p>note: this option has been deprecated in openMPI 4.0+
+and will soon be replaced.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>num_tasks</strong> (<em>int</em>) – number of tasks</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.MpirunSettings.set_hostlist">
+<code class="sig-name descname">set_hostlist</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">host_list</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/mpirunSettings.html#MpirunSettings.set_hostlist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.MpirunSettings.set_hostlist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the hostlist for the <code class="docutils literal notranslate"><span class="pre">mpirun</span></code> command</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>host_list</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – list of host names</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>TypeError</strong> – if not list of str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.MpirunSettings.set_task_map">
+<code class="sig-name descname">set_task_map</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">task_mapping</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/mpirunSettings.html#MpirunSettings.set_task_map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.MpirunSettings.set_task_map" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set <code class="docutils literal notranslate"><span class="pre">mpirun</span></code> task mapping</p>
+<p>this sets <code class="docutils literal notranslate"><span class="pre">--map-by</span> <span class="pre">&lt;mapping&gt;</span></code></p>
+<p>For examples, see the man page for <code class="docutils literal notranslate"><span class="pre">mpirun</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>task_mapping</strong> (<em>str</em>) – task mapping</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.MpirunSettings.set_tasks">
+<code class="sig-name descname">set_tasks</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">num_tasks</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/settings/mpirunSettings.html#MpirunSettings.set_tasks"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.settings.MpirunSettings.set_tasks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the number of tasks for this job</p>
+<p>This sets <code class="docutils literal notranslate"><span class="pre">--n</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>num_tasks</strong> (<em>int</em>) – number of tasks</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.settings.MpirunSettings.update_env">
+<code class="sig-name descname">update_env</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">env_vars</span></em><span class="sig-paren">)</span><a class="headerlink" href="#smartsim.settings.MpirunSettings.update_env" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the job environment variables</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>env_vars</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em>) – environment variables to update or add</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="orchestrator">
+<h2>Orchestrator<a class="headerlink" href="#orchestrator" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">Orchestrator</span></code> API is implemented for each launcher that
+SmartSim supports.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Slurm</p></li>
+<li><p>Cobalt</p></li>
+<li><p>PBSPro</p></li>
+</ul>
+</div></blockquote>
+<p>The base <code class="docutils literal notranslate"><span class="pre">Orchestrator</span></code> class can be used for launching Redis
+locally on single node workstations or laptops.</p>
+<div class="section" id="local-orchestrator">
+<h3>Local Orchestrator<a class="headerlink" href="#local-orchestrator" title="Permalink to this headline">¶</a></h3>
+<p id="local-orc-api">The <code class="docutils literal notranslate"><span class="pre">Orchestrator</span></code> base class can be launched through
+the local launcher and does not support cluster instances</p>
+<dl class="py class">
+<dt id="smartsim.database.Orchestrator">
+<em class="property">class </em><code class="sig-name descname">Orchestrator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">port</span><span class="o">=</span><span class="default_value">6379</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/database/orchestrator.html#Orchestrator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.database.Orchestrator" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Orchestrator is an in-memory database that can be launched
+alongside entities in SmartSim. Data can be transferred between
+entities by using one of the Python, C, C++ or Fortran clients
+within an entity.</p>
+<p>Initialize an Orchestrator reference for local launch</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>port</strong> (<em>int</em>) – TCP/IP port</p>
+</dd>
+</dl>
+<p>Extra configurations for RedisAI</p>
+<p>See <a class="reference external" href="https://oss.redislabs.com/redisai/configuration/">https://oss.redislabs.com/redisai/configuration/</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>threads_per_queue</strong> (<em>int</em>) – threads per GPU device</p></li>
+<li><p><strong>inter_op_threads</strong> (<em>int</em>) – threads accross CPU operations</p></li>
+<li><p><strong>intra_op_threads</strong> (<em>int</em>) – threads per CPU operation</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="smartsim.database.Orchestrator.batch">
+<em class="property">property </em><code class="sig-name descname">batch</code><a class="headerlink" href="#smartsim.database.Orchestrator.batch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.database.Orchestrator.check_cluster_status">
+<code class="sig-name descname">check_cluster_status</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/database/orchestrator.html#Orchestrator.check_cluster_status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.database.Orchestrator.check_cluster_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check that a cluster is up and running</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>SmartSimError</strong> – If cluster status cannot be verified</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.database.Orchestrator.hosts">
+<em class="property">property </em><code class="sig-name descname">hosts</code><a class="headerlink" href="#smartsim.database.Orchestrator.hosts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the hostnames of orchestrator instance hosts</p>
+<p>Note that this will only be popluated after the orchestrator
+has been launched by SmartSim.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>hostnames</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.database.Orchestrator.remove_stale_files">
+<code class="sig-name descname">remove_stale_files</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/database/orchestrator.html#Orchestrator.remove_stale_files"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.database.Orchestrator.remove_stale_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>Can be used to remove database files of a previous launch</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.database.Orchestrator.set_path">
+<code class="sig-name descname">set_path</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#smartsim.database.Orchestrator.set_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.database.Orchestrator.type">
+<em class="property">property </em><code class="sig-name descname">type</code><a class="headerlink" href="#smartsim.database.Orchestrator.type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the name of the class</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="pbspro-orchestrator">
+<h3>PBSPro Orchestrator<a class="headerlink" href="#pbspro-orchestrator" title="Permalink to this headline">¶</a></h3>
+<p id="pbs-orc-api">The PBSPro Orchestrator can be launched as a batch, and
+in an interactive allocation.</p>
+<dl class="py class">
+<dt id="smartsim.database.PBSOrchestrator">
+<em class="property">class </em><code class="sig-name descname">PBSOrchestrator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">port</span><span class="o">=</span><span class="default_value">6379</span></em>, <em class="sig-param"><span class="n">db_nodes</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">batch</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">hosts</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">run_command</span><span class="o">=</span><span class="default_value">'aprun'</span></em>, <em class="sig-param"><span class="n">account</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">time</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">queue</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/database/pbsOrchestrator.html#PBSOrchestrator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.database.PBSOrchestrator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">smartsim.database.orchestrator.Orchestrator</span></code></p>
+<p>Initialize an Orchestrator reference for PBSPro based systems</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">PBSOrchestrator</span></code> launches as a batch by default. If batch=False,
+at launch, the <code class="docutils literal notranslate"><span class="pre">PBSOrchestrator</span></code> will look for an interactive
+allocation to launch on.</p>
+<p>The PBS orchestrator does not support multiple databases per node.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">mpirun</span></code> is specifed as the <code class="docutils literal notranslate"><span class="pre">run_command</span></code>, then the <code class="docutils literal notranslate"><span class="pre">hosts</span></code>
+argument is required.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>port</strong> (<em>int</em>) – TCP/IP port</p></li>
+<li><p><strong>db_nodes</strong> (<em>int</em><em>, </em><em>optional</em>) – number of compute nodes to span accross, defaults to 1</p></li>
+<li><p><strong>batch</strong> (<em>bool</em><em>, </em><em>optional</em>) – run as a batch workload</p></li>
+<li><p><strong>hosts</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – specify hosts to launch on</p></li>
+<li><p><strong>run_command</strong> (<em>str</em>) – specify launch binary. Options are <code class="docutils literal notranslate"><span class="pre">mpirun</span></code> and <code class="docutils literal notranslate"><span class="pre">aprun</span></code></p></li>
+<li><p><strong>account</strong> (<em>str</em>) – account to run batch on</p></li>
+<li><p><strong>time</strong> (<em>str</em>) – walltime for batch ‘HH:MM:SS’ format</p></li>
+<li><p><strong>queue</strong> (<em>str</em>) – queue to launch batch in</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="smartsim.database.PBSOrchestrator.batch">
+<em class="property">property </em><code class="sig-name descname">batch</code><a class="headerlink" href="#smartsim.database.PBSOrchestrator.batch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.database.PBSOrchestrator.check_cluster_status">
+<code class="sig-name descname">check_cluster_status</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#smartsim.database.PBSOrchestrator.check_cluster_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check that a cluster is up and running</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>SmartSimError</strong> – If cluster status cannot be verified</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.database.PBSOrchestrator.hosts">
+<em class="property">property </em><code class="sig-name descname">hosts</code><a class="headerlink" href="#smartsim.database.PBSOrchestrator.hosts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the hostnames of orchestrator instance hosts</p>
+<p>Note that this will only be popluated after the orchestrator
+has been launched by SmartSim.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>hostnames</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.database.PBSOrchestrator.remove_stale_files">
+<code class="sig-name descname">remove_stale_files</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#smartsim.database.PBSOrchestrator.remove_stale_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>Can be used to remove database files of a previous launch</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.database.PBSOrchestrator.set_batch_arg">
+<code class="sig-name descname">set_batch_arg</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">arg</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/database/pbsOrchestrator.html#PBSOrchestrator.set_batch_arg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.database.PBSOrchestrator.set_batch_arg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set a <code class="docutils literal notranslate"><span class="pre">qsub</span></code> argument the <code class="docutils literal notranslate"><span class="pre">PBSOrchestrator</span></code> should launch with</p>
+<p>Some commonly used arguments such as -e are used
+by SmartSim and will not be allowed to be set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>arg</strong> (<em>str</em>) – batch argument to set e.g. “A” for account</p></li>
+<li><p><strong>value</strong> (<em>str | None</em>) – batch param - set to None if no param value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>SmartSimError</strong> – if orchestrator not launching as batch</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.database.PBSOrchestrator.set_cpus">
+<code class="sig-name descname">set_cpus</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">num_cpus</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/database/pbsOrchestrator.html#PBSOrchestrator.set_cpus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.database.PBSOrchestrator.set_cpus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the number of CPUs available to each database shard</p>
+<p>This effectively will determine how many cpus can be used for
+compute threads, background threads, and network I/O.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>num_cpus</strong> (<em>int</em>) – number of cpus to set</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.database.PBSOrchestrator.set_hosts">
+<code class="sig-name descname">set_hosts</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">host_list</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/database/pbsOrchestrator.html#PBSOrchestrator.set_hosts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.database.PBSOrchestrator.set_hosts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify the hosts for the <code class="docutils literal notranslate"><span class="pre">PBSOrchestrator</span></code> to launch on</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>host_list</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – list of hosts (compute node names)</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>TypeError</strong> – if wrong type</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.database.PBSOrchestrator.set_path">
+<code class="sig-name descname">set_path</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#smartsim.database.PBSOrchestrator.set_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.database.PBSOrchestrator.set_walltime">
+<code class="sig-name descname">set_walltime</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">walltime</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/database/pbsOrchestrator.html#PBSOrchestrator.set_walltime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.database.PBSOrchestrator.set_walltime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the batch walltime of the orchestrator</p>
+<p>Note: This will only effect orchestrators launched as a batch</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>walltime</strong> (<em>str</em>) – amount of time e.g. 10 hours is 10:00:00</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>SmartSimError</strong> – if orchestrator isn’t launching as batch</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.database.PBSOrchestrator.type">
+<em class="property">property </em><code class="sig-name descname">type</code><a class="headerlink" href="#smartsim.database.PBSOrchestrator.type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the name of the class</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="slurm-orchestrator">
+<h3>Slurm Orchestrator<a class="headerlink" href="#slurm-orchestrator" title="Permalink to this headline">¶</a></h3>
+<p id="slurm-orc-api">The <code class="docutils literal notranslate"><span class="pre">SlurmOrchestrator</span></code> is used to launch Redis on to Slurm WLM
+systems and can be launched as a batch, on existing allocations,
+or in an interactive allocation.</p>
+<dl class="py class">
+<dt id="smartsim.database.SlurmOrchestrator">
+<em class="property">class </em><code class="sig-name descname">SlurmOrchestrator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">port</span><span class="o">=</span><span class="default_value">6379</span></em>, <em class="sig-param"><span class="n">db_nodes</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">batch</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">hosts</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">run_command</span><span class="o">=</span><span class="default_value">'srun'</span></em>, <em class="sig-param"><span class="n">account</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">time</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">alloc</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dpn</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/database/slurmOrchestrator.html#SlurmOrchestrator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.database.SlurmOrchestrator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">smartsim.database.orchestrator.Orchestrator</span></code></p>
+<p>Initialize an Orchestrator reference for Slurm based systems</p>
+<p>The orchestrator launches as a batch by default. The Slurm orchestrator
+can also be given an allocation to run on. If no allocation is provided,
+and batch=False, at launch, the orchestrator will look for an interactive
+allocation to launch on.</p>
+<p>The SlurmOrchestrator port provided will be incremented if multiple
+databases per node are launched.</p>
+<p>SlurmOrchestrator supports launching with both <code class="docutils literal notranslate"><span class="pre">srun</span></code> and <code class="docutils literal notranslate"><span class="pre">mpirun</span></code>
+as launch binaries. If mpirun is used, the hosts parameter should be
+populated with length equal to that of the <code class="docutils literal notranslate"><span class="pre">db_nodes</span></code> argument.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>port</strong> (<em>int</em>) – TCP/IP port</p></li>
+<li><p><strong>db_nodes</strong> (<em>int</em><em>, </em><em>optional</em>) – number of database shards, defaults to 1</p></li>
+<li><p><strong>batch</strong> (<em>bool</em><em>, </em><em>optional</em>) – Run as a batch workload, defaults to True</p></li>
+<li><p><strong>hosts</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – specify hosts to launch on</p></li>
+<li><p><strong>run_command</strong> (<em>str</em>) – specify launch binary. Options are <code class="docutils literal notranslate"><span class="pre">mpirun</span></code> and <code class="docutils literal notranslate"><span class="pre">srun</span></code></p></li>
+<li><p><strong>account</strong> (<em>str</em>) – account to run batch on</p></li>
+<li><p><strong>time</strong> (<em>str</em>) – walltime for batch ‘HH:MM:SS’ format</p></li>
+<li><p><strong>alloc</strong> (<em>str</em><em>, </em><em>optional</em>) – allocation to launch on, defaults to None</p></li>
+<li><p><strong>dpn</strong> (<em>int</em><em>, </em><em>optional</em>) – number of database per node (MPMD), defaults to 1</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="smartsim.database.SlurmOrchestrator.batch">
+<em class="property">property </em><code class="sig-name descname">batch</code><a class="headerlink" href="#smartsim.database.SlurmOrchestrator.batch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.database.SlurmOrchestrator.check_cluster_status">
+<code class="sig-name descname">check_cluster_status</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#smartsim.database.SlurmOrchestrator.check_cluster_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check that a cluster is up and running</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>SmartSimError</strong> – If cluster status cannot be verified</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.database.SlurmOrchestrator.hosts">
+<em class="property">property </em><code class="sig-name descname">hosts</code><a class="headerlink" href="#smartsim.database.SlurmOrchestrator.hosts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the hostnames of orchestrator instance hosts</p>
+<p>Note that this will only be popluated after the orchestrator
+has been launched by SmartSim.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>hostnames</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.database.SlurmOrchestrator.remove_stale_files">
+<code class="sig-name descname">remove_stale_files</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#smartsim.database.SlurmOrchestrator.remove_stale_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>Can be used to remove database files of a previous launch</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.database.SlurmOrchestrator.set_batch_arg">
+<code class="sig-name descname">set_batch_arg</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">arg</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/database/slurmOrchestrator.html#SlurmOrchestrator.set_batch_arg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.database.SlurmOrchestrator.set_batch_arg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set a Sbatch argument the orchestrator should launch with</p>
+<p>Some commonly used arguments such as –job-name are used
+by SmartSim and will not be allowed to be set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>arg</strong> (<em>str</em>) – batch argument to set e.g. “exclusive”</p></li>
+<li><p><strong>value</strong> (<em>str | None</em>) – batch param - set to None if no param value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>SmartSimError</strong> – if orchestrator not launching as batch</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.database.SlurmOrchestrator.set_cpus">
+<code class="sig-name descname">set_cpus</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">num_cpus</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/database/slurmOrchestrator.html#SlurmOrchestrator.set_cpus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.database.SlurmOrchestrator.set_cpus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the number of CPUs available to each database shard</p>
+<p>This effectively will determine how many cpus can be used for
+compute threads, background threads, and network I/O.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>num_cpus</strong> (<em>int</em>) – number of cpus to set</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.database.SlurmOrchestrator.set_hosts">
+<code class="sig-name descname">set_hosts</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">host_list</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/database/slurmOrchestrator.html#SlurmOrchestrator.set_hosts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.database.SlurmOrchestrator.set_hosts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify the hosts for the <code class="docutils literal notranslate"><span class="pre">SlurmOrchestrator</span></code> to launch on</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>host_list</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – list of host (compute node names)</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>TypeError</strong> – if wrong type</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.database.SlurmOrchestrator.set_path">
+<code class="sig-name descname">set_path</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#smartsim.database.SlurmOrchestrator.set_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.database.SlurmOrchestrator.set_walltime">
+<code class="sig-name descname">set_walltime</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">walltime</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/database/slurmOrchestrator.html#SlurmOrchestrator.set_walltime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.database.SlurmOrchestrator.set_walltime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the batch walltime of the orchestrator</p>
+<p>Note: This will only effect orchestrators launched as a batch</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>walltime</strong> (<em>str</em>) – amount of time e.g. 10 hours is 10:00:00</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>SmartSimError</strong> – if orchestrator isn’t launching as batch</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.database.SlurmOrchestrator.type">
+<em class="property">property </em><code class="sig-name descname">type</code><a class="headerlink" href="#smartsim.database.SlurmOrchestrator.type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the name of the class</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="cobalt-orchestrator">
+<h3>Cobalt Orchestrator<a class="headerlink" href="#cobalt-orchestrator" title="Permalink to this headline">¶</a></h3>
+<p id="cobalt-orc-api">The <code class="docutils literal notranslate"><span class="pre">CobaltOrchestrator</span></code> can be launched as a batch, and
+in an interactive allocation.</p>
+<dl class="py class">
+<dt id="smartsim.database.CobaltOrchestrator">
+<em class="property">class </em><code class="sig-name descname">CobaltOrchestrator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">port</span><span class="o">=</span><span class="default_value">6379</span></em>, <em class="sig-param"><span class="n">db_nodes</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">batch</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">hosts</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">run_command</span><span class="o">=</span><span class="default_value">'aprun'</span></em>, <em class="sig-param"><span class="n">account</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">queue</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">time</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/database/cobaltOrchestrator.html#CobaltOrchestrator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.database.CobaltOrchestrator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">smartsim.database.orchestrator.Orchestrator</span></code></p>
+<p>Initialize an Orchestrator reference for Cobalt based systems</p>
+<p>The orchestrator launches as a batch by default. If batch=False,
+at launch, the orchestrator will look for an interactive
+allocation to launch on.</p>
+<p>The Cobalt orchestrator does not support multiple databases per node.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>port</strong> (<em>int</em>) – TCP/IP port</p></li>
+<li><p><strong>db_nodes</strong> (<em>int</em><em>, </em><em>optional</em>) – number of database shards, defaults to 1</p></li>
+<li><p><strong>batch</strong> (<em>bool</em><em>, </em><em>optional</em>) – Run as a batch workload, defaults to True</p></li>
+<li><p><strong>hosts</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – specify hosts to launch on</p></li>
+<li><p><strong>run_command</strong> (<em>str</em>) – specify launch binary. Options are <code class="docutils literal notranslate"><span class="pre">mpirun</span></code> and <code class="docutils literal notranslate"><span class="pre">aprun</span></code></p></li>
+<li><p><strong>account</strong> (<em>str</em>) – account to run batch on</p></li>
+<li><p><strong>queue</strong> (<em>str</em>) – queue to launch batch in</p></li>
+<li><p><strong>time</strong> (<em>str</em>) – walltime for batch ‘HH:MM:SS’ format</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="smartsim.database.CobaltOrchestrator.batch">
+<em class="property">property </em><code class="sig-name descname">batch</code><a class="headerlink" href="#smartsim.database.CobaltOrchestrator.batch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.database.CobaltOrchestrator.check_cluster_status">
+<code class="sig-name descname">check_cluster_status</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#smartsim.database.CobaltOrchestrator.check_cluster_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check that a cluster is up and running</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>SmartSimError</strong> – If cluster status cannot be verified</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.database.CobaltOrchestrator.hosts">
+<em class="property">property </em><code class="sig-name descname">hosts</code><a class="headerlink" href="#smartsim.database.CobaltOrchestrator.hosts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the hostnames of orchestrator instance hosts</p>
+<p>Note that this will only be popluated after the orchestrator
+has been launched by SmartSim.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>hostnames</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.database.CobaltOrchestrator.remove_stale_files">
+<code class="sig-name descname">remove_stale_files</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#smartsim.database.CobaltOrchestrator.remove_stale_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>Can be used to remove database files of a previous launch</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.database.CobaltOrchestrator.set_batch_arg">
+<code class="sig-name descname">set_batch_arg</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">arg</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/database/cobaltOrchestrator.html#CobaltOrchestrator.set_batch_arg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.database.CobaltOrchestrator.set_batch_arg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set a cobalt <code class="docutils literal notranslate"><span class="pre">qsub</span></code> argument</p>
+<p>Some commonly used arguments are used
+by SmartSim and will not be allowed to be set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>arg</strong> (<em>str</em>) – batch argument to set e.g. “exclusive”</p></li>
+<li><p><strong>value</strong> (<em>str | None</em>) – batch param - set to None if no param value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>SmartSimError</strong> – if orchestrator not launching as batch</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.database.CobaltOrchestrator.set_cpus">
+<code class="sig-name descname">set_cpus</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">num_cpus</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/database/cobaltOrchestrator.html#CobaltOrchestrator.set_cpus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.database.CobaltOrchestrator.set_cpus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the number of CPUs available to each database shard</p>
+<p>This effectively will determine how many cpus can be used for
+compute threads, background threads, and network I/O.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>num_cpus</strong> (<em>int</em>) – number of cpus to set</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.database.CobaltOrchestrator.set_hosts">
+<code class="sig-name descname">set_hosts</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">host_list</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/database/cobaltOrchestrator.html#CobaltOrchestrator.set_hosts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.database.CobaltOrchestrator.set_hosts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify the hosts for the <code class="docutils literal notranslate"><span class="pre">CobaltOrchestrator</span></code> to launch on</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>host_list</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – list of hosts (compute node names)</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>TypeError</strong> – if wrong type</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.database.CobaltOrchestrator.set_path">
+<code class="sig-name descname">set_path</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new_path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#smartsim.database.CobaltOrchestrator.set_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.database.CobaltOrchestrator.set_walltime">
+<code class="sig-name descname">set_walltime</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">walltime</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/database/cobaltOrchestrator.html#CobaltOrchestrator.set_walltime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.database.CobaltOrchestrator.set_walltime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the batch walltime of the orchestrator</p>
+<p>Note: This will only effect orchestrators launched as a batch</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>walltime</strong> (<em>str</em>) – amount of time e.g. 10 hours is 10:00:00</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>SmartSimError</strong> – if orchestrator isn’t launching as batch</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.database.CobaltOrchestrator.type">
+<em class="property">property </em><code class="sig-name descname">type</code><a class="headerlink" href="#smartsim.database.CobaltOrchestrator.type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the name of the class</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="entity">
+<h2>Entity<a class="headerlink" href="#entity" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="ensemble">
+<h3>Ensemble<a class="headerlink" href="#ensemble" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">Ensemble.__init__</span></code>(name, params[, …])</p></td>
+<td><p>Initialize an Ensemble of Model instances.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#smartsim.entity.ensemble.Ensemble.add_model" title="smartsim.entity.ensemble.Ensemble.add_model"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Ensemble.add_model</span></code></a>(model)</p></td>
+<td><p>Add a model to this ensemble</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">Ensemble.attach_generator_files</span></code>([to_copy, …])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#smartsim.entity.ensemble.Ensemble.register_incoming_entity" title="smartsim.entity.ensemble.Ensemble.register_incoming_entity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Ensemble.register_incoming_entity</span></code></a>(…)</p></td>
+<td><p>Register future communication between entities.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#smartsim.entity.ensemble.Ensemble.enable_key_prefixing" title="smartsim.entity.ensemble.Ensemble.enable_key_prefixing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Ensemble.enable_key_prefixing</span></code></a>()</p></td>
+<td><p>If called, all models within this ensemble will prefix their keys with its own model name.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#smartsim.entity.ensemble.Ensemble.query_key_prefixing" title="smartsim.entity.ensemble.Ensemble.query_key_prefixing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Ensemble.query_key_prefixing</span></code></a>()</p></td>
+<td><p>Inquire as to whether each model within the ensemble will prefix its keys</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="smartsim.entity.ensemble.Ensemble">
+<em class="property">class </em><code class="sig-name descname">Ensemble</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">params</span></em>, <em class="sig-param"><span class="n">batch_settings</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">run_settings</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">perm_strat</span><span class="o">=</span><span class="default_value">'all_perm'</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/entity/ensemble.html#Ensemble"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.entity.ensemble.Ensemble" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">smartsim.entity.entityList.EntityList</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">Ensemble</span></code> is a group of <code class="docutils literal notranslate"><span class="pre">Model</span></code> instances that can
+be treated as a reference to a single instance.</p>
+<p>Initialize an Ensemble of Model instances.</p>
+<p>The kwargs argument can be used to pass custom input
+parameters to the permutation strategy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – name of the ensemble</p></li>
+<li><p><strong>params</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – parameters to expand into <code class="docutils literal notranslate"><span class="pre">Model</span></code> members</p></li>
+<li><p><strong>batch_settings</strong> (<em>BatchSettings</em>) – describes settings for <code class="docutils literal notranslate"><span class="pre">Ensemble</span></code> as batch workload</p></li>
+<li><p><strong>run_settings</strong> (<a class="reference internal" href="#smartsim.settings.RunSettings" title="smartsim.settings.RunSettings"><em>RunSettings</em></a>) – describes how each <code class="docutils literal notranslate"><span class="pre">Model</span></code> should be executed</p></li>
+<li><p><strong>replicas</strong> (<em>int</em>) – number of replicas to create</p></li>
+<li><p><strong>perm_strategy</strong> (<em>str</em>) – strategy for expanding <code class="docutils literal notranslate"><span class="pre">params</span></code> into
+<code class="docutils literal notranslate"><span class="pre">Model</span></code> instances from params argument
+options are “all_perm”, “stepped”, “random”
+or a callable function</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">Ensemble</span></code> instance</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">Ensemble</span></code></p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="smartsim.entity.ensemble.Ensemble.add_model">
+<code class="sig-name descname">add_model</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">model</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/entity/ensemble.html#Ensemble.add_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.entity.ensemble.Ensemble.add_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a model to this ensemble</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>model</strong> (<a class="reference internal" href="#smartsim.entity.model.Model" title="smartsim.entity.model.Model"><em>Model</em></a>) – model instance</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>EntityExistsError</strong> – if model already exists in this ensemble</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.entity.ensemble.Ensemble.enable_key_prefixing">
+<code class="sig-name descname">enable_key_prefixing</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/entity/ensemble.html#Ensemble.enable_key_prefixing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.entity.ensemble.Ensemble.enable_key_prefixing" title="Permalink to this definition">¶</a></dt>
+<dd><p>If called, all models within this ensemble will prefix their keys with its
+own model name.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.entity.ensemble.Ensemble.query_key_prefixing">
+<code class="sig-name descname">query_key_prefixing</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/entity/ensemble.html#Ensemble.query_key_prefixing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.entity.ensemble.Ensemble.query_key_prefixing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inquire as to whether each model within the ensemble will prefix its keys</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if all models have key prefixing enabled, False otherwise</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.entity.ensemble.Ensemble.register_incoming_entity">
+<code class="sig-name descname">register_incoming_entity</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">incoming_entity</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/entity/ensemble.html#Ensemble.register_incoming_entity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.entity.ensemble.Ensemble.register_incoming_entity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register future communication between entities.</p>
+<p>Registers the named data sources that this entity
+has access to by storing the key_prefix associated
+with that entity</p>
+<p>Only python clients can have multiple incoming connections</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>incoming_entity</strong> (<em>SmartSimEntity</em>) – The entity that data will be received from</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.entity.ensemble.Ensemble.type">
+<em class="property">property </em><code class="sig-name descname">type</code><a class="headerlink" href="#smartsim.entity.ensemble.Ensemble.type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the name of the class</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="model">
+<h3>Model<a class="headerlink" href="#model" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">Model.__init__</span></code>(name, params, path, run_settings)</p></td>
+<td><p>Initialize a model entity within Smartsim</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#smartsim.entity.model.Model.attach_generator_files" title="smartsim.entity.model.Model.attach_generator_files"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Model.attach_generator_files</span></code></a>([to_copy, …])</p></td>
+<td><p>Attach files to an entity for generation</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#smartsim.entity.model.Model.register_incoming_entity" title="smartsim.entity.model.Model.register_incoming_entity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Model.register_incoming_entity</span></code></a>(incoming_entity)</p></td>
+<td><p>Register future communication between entities.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#smartsim.entity.model.Model.enable_key_prefixing" title="smartsim.entity.model.Model.enable_key_prefixing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Model.enable_key_prefixing</span></code></a>()</p></td>
+<td><p>If called, the entity will prefix its keys with its own model name</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#smartsim.entity.model.Model.disable_key_prefixing" title="smartsim.entity.model.Model.disable_key_prefixing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Model.disable_key_prefixing</span></code></a>()</p></td>
+<td><p>If called, the entity will not prefix its keys with its own model name</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#smartsim.entity.model.Model.query_key_prefixing" title="smartsim.entity.model.Model.query_key_prefixing"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Model.query_key_prefixing</span></code></a>()</p></td>
+<td><p>Inquire as to whether this entity will prefix its keys with its name</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="smartsim.entity.model.Model">
+<em class="property">class </em><code class="sig-name descname">Model</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">params</span></em>, <em class="sig-param"><span class="n">path</span></em>, <em class="sig-param"><span class="n">run_settings</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/entity/model.html#Model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.entity.model.Model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">smartsim.entity.entity.SmartSimEntity</span></code></p>
+<p>Initialize a model entity within Smartsim</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – name of the model</p></li>
+<li><p><strong>params</strong> (<em>dict</em>) – model parameters for writing into configuration files.</p></li>
+<li><p><strong>path</strong> (<em>str</em>) – path to output, error, and configuration files</p></li>
+<li><p><strong>run_settings</strong> (<em>dict</em>) – launcher settings specified in the experiment</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="smartsim.entity.model.Model.attach_generator_files">
+<code class="sig-name descname">attach_generator_files</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">to_copy</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">to_symlink</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">to_configure</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/entity/model.html#Model.attach_generator_files"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.entity.model.Model.attach_generator_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attach files to an entity for generation</p>
+<p>Attach files needed for the entity that, upon generation,
+will be located in the path of the entity.</p>
+<p>During generation files “to_copy” are just copied into
+the path of the entity, and files “to_symlink” are
+symlinked into the path of the entity.</p>
+<p>Files “to_configure” are text based model input files where
+parameters for the model are set. Note that only models
+support the “to_configure” field. These files must have
+fields tagged that correspond to the values the user
+would like to change. The tag is settable but defaults
+to a semicolon e.g. THERMO = ;10;</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>to_copy</strong> (<em>list</em><em>, </em><em>optional</em>) – files to copy, defaults to []</p></li>
+<li><p><strong>to_symlink</strong> (<em>list</em><em>, </em><em>optional</em>) – files to symlink, defaults to []</p></li>
+<li><p><strong>to_configure</strong> (<em>list</em><em>, </em><em>optional</em>) – input files with tagged parameters, defaults to []</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.entity.model.Model.disable_key_prefixing">
+<code class="sig-name descname">disable_key_prefixing</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/entity/model.html#Model.disable_key_prefixing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.entity.model.Model.disable_key_prefixing" title="Permalink to this definition">¶</a></dt>
+<dd><p>If called, the entity will not prefix its keys with its own model name</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.entity.model.Model.enable_key_prefixing">
+<code class="sig-name descname">enable_key_prefixing</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/entity/model.html#Model.enable_key_prefixing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.entity.model.Model.enable_key_prefixing" title="Permalink to this definition">¶</a></dt>
+<dd><p>If called, the entity will prefix its keys with its own model name</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.entity.model.Model.query_key_prefixing">
+<code class="sig-name descname">query_key_prefixing</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/entity/model.html#Model.query_key_prefixing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.entity.model.Model.query_key_prefixing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inquire as to whether this entity will prefix its keys with its name</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.entity.model.Model.register_incoming_entity">
+<code class="sig-name descname">register_incoming_entity</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">incoming_entity</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/entity/model.html#Model.register_incoming_entity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.entity.model.Model.register_incoming_entity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register future communication between entities.</p>
+<p>Registers the named data sources that this entity
+has access to by storing the key_prefix associated
+with that entity</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>incoming_entity</strong> – The entity that data will be received from</p></li>
+<li><p><strong>incoming_entity</strong> – SmartSimEntity</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartsim.entity.model.Model.type">
+<em class="property">property </em><code class="sig-name descname">type</code><a class="headerlink" href="#smartsim.entity.model.Model.type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the name of the class</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="slurm">
+<h2>Slurm<a class="headerlink" href="#slurm" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note" id="slurm-module-api">
+<p class="admonition-title">Note</p>
+<p>This module is importable through smartsim e.g. from smartsim import slurm</p>
+</div>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#smartsim.launcher.slurm.slurm.get_allocation" title="smartsim.launcher.slurm.slurm.get_allocation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">slurm.get_allocation</span></code></a>([nodes, time, account, …])</p></td>
+<td><p>Request an allocation</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#smartsim.launcher.slurm.slurm.release_allocation" title="smartsim.launcher.slurm.slurm.release_allocation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">slurm.release_allocation</span></code></a>(alloc_id)</p></td>
+<td><p>Free an allocations resources</p></td>
+</tr>
+</tbody>
+</table>
+<span class="target" id="module-smartsim.launcher.slurm.slurm"></span><dl class="py function">
+<dt id="smartsim.launcher.slurm.slurm.get_allocation">
+<code class="sig-name descname">get_allocation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">nodes</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">time</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">account</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">options</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/launcher/slurm/slurm.html#get_allocation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.launcher.slurm.slurm.get_allocation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Request an allocation</p>
+<p>This function requests an allocation with the specified arguments.
+Anything passed to the options will be processed as a Slurm
+argument and appended to the salloc command with the appropriate
+prefix (e.g. “-” or “–”).</p>
+<p>The options can be used to pass extra settings to the
+workload manager such as the following for Slurm:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>nodelist=”nid00004”</p></li>
+</ul>
+</div></blockquote>
+<p>For arguments without a value, pass None or and empty
+string as the value. For Slurm:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>exclusive=None</p></li>
+</ul>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nodes</strong> (<em>int</em><em>, </em><em>optional</em>) – number of nodes for the allocation, defaults to 1</p></li>
+<li><p><strong>time</strong> (<em>str</em>) – wall time of the allocation, HH:MM:SS format</p></li>
+<li><p><strong>account</strong> (<em>str</em>) – account id for allocation</p></li>
+<li><p><strong>options</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em>) – additional options for the slurm wlm</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>LauncherError</strong> – if the allocation is not successful</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the id of the allocation</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="smartsim.launcher.slurm.slurm.get_default_partition">
+<code class="sig-name descname">get_default_partition</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/launcher/slurm/slurm.html#get_default_partition"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.launcher.slurm.slurm.get_default_partition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the default partition from Slurm</p>
+<p>This default partition is assumed to be the partition with
+a star following its partition name in sinfo output</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the name of the default partition</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="smartsim.launcher.slurm.slurm.release_allocation">
+<code class="sig-name descname">release_allocation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">alloc_id</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/launcher/slurm/slurm.html#release_allocation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.launcher.slurm.slurm.release_allocation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Free an allocations resources</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>alloc_id</strong> (<em>str</em>) – allocation id</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>LauncherError</strong> – if allocation could not be freed</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="smartsim.launcher.slurm.slurm.validate">
+<code class="sig-name descname">validate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">nodes</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">ppn</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">partition</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/smartsim/launcher/slurm/slurm.html#validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartsim.launcher.slurm.slurm.validate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check that there are sufficient resources in the provided Slurm partitions.</p>
+<p>if no partition is provided, the default partition is found and used.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>partition</strong> (<em>str</em>) – partition to validate</p></li>
+<li><p><strong>nodes</strong> (<em>int</em>) – Override the default node count to validate</p></li>
+<li><p><strong>ppn</strong> (<em>int</em>) – Override the default processes per node to validate</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p>LauncherError</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if resources are available</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../smartredis.html" class="btn btn-neutral float-right" title="SmartRedis" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../launchers.html" class="btn btn-neutral float-left" title="Launchers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Hewlett Packard Enterprise.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
